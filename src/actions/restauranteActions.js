@@ -11,7 +11,6 @@ const crearContrasenaHash =  async (  contrasena  ) =>   {
 
 const verificarContrasenaHash = async (  contrasena , contrasenaHash  ) =>   {
 
-
     const passwordHash = await bcrypt.compare(  contrasena, contrasenaHash)
 
     return passwordHash
