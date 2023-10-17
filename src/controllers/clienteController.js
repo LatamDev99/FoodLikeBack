@@ -1,6 +1,6 @@
-const {Cliente} = require("../db.js")
+const { Cliente } = require("../db.js")
 
-async function registro( cliente ){
+async function registro(  cliente  ){
     console.log(cliente)
     let nuevoCliente = await Cliente.create(cliente)
 
@@ -11,7 +11,7 @@ async function registro( cliente ){
     return "Usuario creado con exito"
 }
 
-async function sesion(credencial){
+async function sesion(  credencial  ){
     let cliente = await Cliente.findOne({
         where: {
             correo: credencial.correo,

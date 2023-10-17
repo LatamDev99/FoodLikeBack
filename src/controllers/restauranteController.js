@@ -1,29 +1,59 @@
-const { crearContrasenaHash , verificarContrasenaHash } = require("../actions/restauranteActions.js")
+const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono } = require("../actions/restauranteActions.js")
 const { Restaurante } = require("../db.js")
 
 
 async function registro ( restaurante ){
 
-    const {nombre, contrasena, correo} = restaurante
+    const {nombre, contrasena, correo, representante, telefono} = restaurante
 
-    let nuevaContrasena = await crearContrasenaHash( contrasena )
+    let restCorreo = verificarCorreo(correo)
 
-    let objetoRestaurante = {nombre, correo, contrasena : nuevaContrasena}
-  
-    let nuevoRestaurante = await Restaurante.create(objetoRestaurante)
-
+    var restTelefono = verificarTelefono(telefono)
+        
+        console.log(restTelefono)
+ 
     
-    if(nuevoRestaurante.nombre.length == 0){
+
+    if(restCorreo){
+
+        if (!restTelefono){
+            return "Telefono inválido"
+        }      
+          
+        var rest = await Restaurante.findOne({
+            where: {
+                correo: restaurante.correo,
+            }
+        })  
+        
     
-        return "Ups, hubo un error"
+        if (rest===null){
+            
+    
+            let nuevaContrasena = await crearContrasenaHash( contrasena )
+    
+            let objetoRestaurante = {nombre, 
+                                    correo, 
+                                    contrasena : nuevaContrasena, 
+                                    representante,
+                                    telefono
+                                    }  
+            await Restaurante.create(objetoRestaurante)
+            
+                                    
+        }else{
+    
+            return "Ya existe un restaurante registrado con ese correo"
+        }
+
+    }else{
+        return "Correo inválido"
     }
 
-    return nuevaContrasena
+    
+
+    return "Registrado con éxito"
 }
-
-
-
-
 
 async function sesion ( credencial ){
 
