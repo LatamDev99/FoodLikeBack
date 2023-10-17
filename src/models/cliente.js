@@ -19,11 +19,11 @@ module.exports = (sequelize) => {
         },
         direccion: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         cuenta: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         contrasena: {
             type: DataTypes.STRING,
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
         },
         telefono: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         correo: {
             type: DataTypes.STRING,
@@ -39,6 +39,7 @@ module.exports = (sequelize) => {
         },
         activo: {
             type: DataTypes.BOOLEAN,
+            defaultValue: true,
             allowNull: false
         }
     }, {
