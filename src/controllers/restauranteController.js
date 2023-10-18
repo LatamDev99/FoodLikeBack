@@ -1,34 +1,34 @@
-const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono } = require("../actions/restauranteActions.js")
+const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
 const { Restaurante } = require("../db.js")
 
 
-async function registro ( restaurante ){
 
-    const {nombre, contrasena, correo, representante, telefono} = restaurante
+const registro = async( restaurante ) => {
+
+    const {nombre, contrasena, correo, representante, telefono, direccion, horario, logo, fachada, cuentaBancaria, alcance, activo} = restaurante
 
     let restCorreo = verificarCorreo(correo)
-
     var restTelefono = verificarTelefono(telefono)
-        
-        console.log(restTelefono)
+    let restCuentaBancaria = verificarCuentaBancaria(cuentaBancaria)
  
-    
-
     if(restCorreo){
 
         if (!restTelefono){
             return "Telefono inválido"
-        }      
-          
+        } 
+        
+        if (!restCuentaBancaria){
+            return "Número de cuenta inválido"
+        } 
+        
+
         var rest = await Restaurante.findOne({
             where: {
                 correo: restaurante.correo,
             }
-        })  
-        
+        })          
     
-        if (rest===null){
-            
+        if (rest===null){            
     
             let nuevaContrasena = await crearContrasenaHash( contrasena )
     
@@ -36,26 +36,27 @@ async function registro ( restaurante ){
                                     correo, 
                                     contrasena : nuevaContrasena, 
                                     representante,
-                                    telefono
+                                    telefono,
+                                    direccion,
+                                    horario,
+                                    logo,
+                                    fachada,
+                                    cuentaBancaria,
+                                    alcance,
+                                    activo
                                     }  
-            await Restaurante.create(objetoRestaurante)
-            
+            await Restaurante.create(objetoRestaurante)           
                                     
-        }else{
-    
+        }else{    
             return "Ya existe un restaurante registrado con ese correo"
         }
-
     }else{
         return "Correo inválido"
-    }
-
-    
-
+    } 
     return "Registrado con éxito"
 }
 
-async function sesion ( credencial ){
+const sesion = async( credencial ) => {
 
     let restaurante = await Restaurante.findOne({
         where: {
@@ -63,16 +64,16 @@ async function sesion ( credencial ){
         }
     })
 
-    let verificarSesionRestaurante = verificarContrasenaHash( credencial.contrasena , restaurante.contrasena )
+    let verificarSesionRestaurante = await verificarContrasenaHash( credencial.contrasena , restaurante.contrasena )
 
     if (verificarSesionRestaurante){
         return restaurante
     }else{
-        return 'Contraseña incorrecta'
+        return 'Existe un error en el correo o contraseña'
     }
 }
 
-async function todosRestaurantes(){
+const todosRestaurantes = async( ) => {
 
     let restaurante = await Restaurante.findAll()
     return restaurante

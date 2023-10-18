@@ -25,4 +25,8 @@ const obtenerRestaurantes = async(req, res) => {
     res.status(200).json(restaurante)
 }
 
-module.exports = {  nuevoRegistro, obtenerRestaurantes, inicioSesion    }
+module.exports = {
+    nuevoRegistro, 
+    obtenerRestaurantes, 
+    inicioSesion
+}

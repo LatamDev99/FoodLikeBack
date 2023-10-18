@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
         allowNull: true
     },
     cuentaBancaria: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
     },
     alcance: {
@@ -55,6 +55,7 @@ module.exports = (sequelize) => {
     },
     activo: {
         type: DataTypes.BOOLEAN,
+        defaultValue: false,
         allowNull: true
     },
   }, {
