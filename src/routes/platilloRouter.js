@@ -1,10 +1,12 @@
 const express = require('express');
 const {
-    postPlatillo
+    postPlatillo,
+    patchPlatillo
 } = require ("../handlers/platilloHandler")
 
 const platilloRouter = express.Router();
 
 platilloRouter.post("/", postPlatillo)
+platilloRouter.patch("/", patchPlatillo)
 
 module.exports = platilloRouter
