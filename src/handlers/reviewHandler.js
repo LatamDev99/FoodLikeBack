@@ -1,5 +1,7 @@
 const { registroReview, todosReviews, reviewDesAct, activosReviews,inactivosReviews } = require("../controllers/reviewController");
 
+/* Registrar Review */
+
 const nuevoReview = async(req, res) => {
     try {
         let review = await registroReview(req.body)
@@ -10,10 +12,14 @@ const nuevoReview = async(req, res) => {
     }
 }
 
+/* Todos los Reviews */
+
 const obtenerReviews = async(req,res) =>{
     let restaurante = await todosReviews()
     res.status(200).json(restaurante)
 }
+
+/* Desactivar o activar Reviews */
 
 const desactivarReviewRestaurante = async(req,res) =>{
 
@@ -24,6 +30,8 @@ const desactivarReviewRestaurante = async(req,res) =>{
         res.status(400).json(error)
     }  
 }
+
+/* Todos los Reviews activos */
 
 const todosActivosReview = async(req, res) => {
     try {
@@ -38,6 +46,7 @@ const todosActivosReview = async(req, res) => {
     }
 }
 
+/* Todos los reviews inactivos */
 
 const todosInactivosReview = async(req, res) => {
     try {

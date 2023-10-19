@@ -1,7 +1,7 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
 const { Restaurante } = require("../db.js")
 
-
+/*Función para registrar nuevo restaurante */
 
 const registro = async( restaurante ) => {
     const {nombre, contrasena, correo, representante, telefono, direccion, horario, logo, fachada, cuentaBancaria, alcance, activo} = restaurante
@@ -55,6 +55,8 @@ const registro = async( restaurante ) => {
     return "Registrado con éxito"
 }
 
+/*Función para iniciar sesión restaurante */
+
 const sesion = async( credencial ) => {
     let restaurante = await Restaurante.findOne({
         where: {
@@ -71,35 +73,41 @@ const sesion = async( credencial ) => {
     }
 }
 
+/*Función para obtener todos los restaurantes */
+
 const todosRestaurantes = async() => {
     let restaurante = await Restaurante.findAll()
     return restaurante
 }
 
-const desactivarRestaurante = async ( restaurante ) =>{
-    let restauranteDesAct = await Restaurante.findOne({
+/*Función para activar o desactivar restaurantes */
+
+const restauranteDesAct = async ( restaurante ) =>{
+    let restDesAct = await Restaurante.findOne({
         where: {
             correo: restaurante.correo
         }
     })
 
-    let contrasenaHashBool = await verificarContrasenaHash(restaurante.contrasena, restauranteDesAct.contrasena)
+    let contrasenaHashBool = await verificarContrasenaHash(restaurante.contrasena, restDesAct.contrasena)
 
     if (!contrasenaHashBool) {
         return "Contraseña incorrecta"
     }
 
-    if(restauranteDesAct.activo){
-        restauranteDesAct.activo = false
-        await restauranteDesAct.save()
-        return "Cuenta desactivada"
+    if(restDesAct.activo){
+        restDesAct.activo = false
+        await restDesAct.save()
+        return "Restaurante desactivado"
     }
     else{
-        restauranteDesAct.activo = true
-        await restauranteDesAct.save()
-        return "Cuenta activada"
+        restDesAct.activo = true
+        await restDesAct.save()
+        return "Restaurante activado"
     }       
 }
+
+/* Función para cambiar contraseña de restaurante, tiene restaurante como parámetro */
 
 const cambiarContrasena = async(  restaurante  ) =>{
     let restauranteContrasenaActualizada = await Restaurante.findOne({
@@ -118,8 +126,10 @@ const cambiarContrasena = async(  restaurante  ) =>{
 
     await restauranteContrasenaActualizada.save()
 
-    return restauranteContrasenaActualizada
+    return "Contraseña actualizada"
 }
+
+/* Función para ver restaurantes activos */ 
 
 async function activosRestaurantes() {
     let restaurante = await Restaurante.findAll({
@@ -129,6 +139,8 @@ async function activosRestaurantes() {
     })
     return restaurante
 }
+
+/* Función para ver restaurantes inactivos */ 
 
 async function inactivosRestaurantes() {
     let restaurante = await Restaurante.findAll({
@@ -143,7 +155,7 @@ module.exports={
     registro, 
     todosRestaurantes, 
     sesion,
-    desactivarRestaurante,
+    restauranteDesAct,
     cambiarContrasena,
     activosRestaurantes,
     inactivosRestaurantes

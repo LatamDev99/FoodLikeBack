@@ -5,11 +5,10 @@ const { nuevoReview, obtenerReviews, desactivarReviewRestaurante, todosActivosRe
 const reviewRouter = express.Router();
 
 reviewRouter.post('/registro', nuevoReview);
+
 reviewRouter.get('/todos', obtenerReviews);
-
-reviewRouter.patch('/desact', desactivarReviewRestaurante);
-
 reviewRouter.get('/activos', todosActivosReview);
 reviewRouter.get('/inactivos', todosInactivosReview);
 
+reviewRouter.patch('/desact', desactivarReviewRestaurante);
 module.exports = reviewRouter;

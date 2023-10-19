@@ -1,5 +1,7 @@
 const { Review } = require("../db.js")
 
+/* Función para registrar un Review */ 
+
 const registroReview = async( review ) => {
     const {comentario, calificacion, activo, usuario, restaurante} = review
 
@@ -14,6 +16,8 @@ const registroReview = async( review ) => {
     await Review.create(objetoReview) 
         return "Review registrado con éxito"
 }
+
+/* Función para obtener todos los Reviews */ 
 
 const todosReviews = async () =>{
     let reviews = await Review.findAll()
@@ -40,6 +44,8 @@ const reviewDesAct = async ( review ) =>{
     }   
 }
 
+/* Función para ver Reviews activos */
+
 const activosReviews = async () =>{
 
     let review = await Review.findAll({
@@ -50,6 +56,8 @@ const activosReviews = async () =>{
     return review
 
 }
+
+/* Función para ver Reviews inactivos */
 
 const inactivosReviews = async () =>{
 
