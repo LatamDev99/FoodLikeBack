@@ -4,9 +4,7 @@ const nuevoRegistro = async(req, res) => {
     try {
        let nuevoRestaurante = await registro(req.body)
        res.status(200).json(nuevoRestaurante)
-
     } catch (error) {
-        console.log(error)
         res.status(400).json(error)
     }
 }

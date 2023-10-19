@@ -8,7 +8,7 @@ restauranteRouter.post('/registro', nuevoRegistro);
 restauranteRouter.get('/todos', obtenerRestaurantes);
 restauranteRouter.get('/sesion', inicioSesion);
 
-restauranteRouter.patch('/desactivar', desactivarCuentaRestaurante);
+restauranteRouter.patch('/desact', desactivarCuentaRestaurante);
 restauranteRouter.patch('/contrasena', actualizarContrasenaRestaurante);
 
 restauranteRouter.get('/activos', todosActivosRestaurantes);

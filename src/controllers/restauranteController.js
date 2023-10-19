@@ -71,7 +71,7 @@ const sesion = async( credencial ) => {
     }
 }
 
-const todosRestaurantes = async( ) => {
+const todosRestaurantes = async() => {
     let restaurante = await Restaurante.findAll()
     return restaurante
 }
@@ -131,7 +131,6 @@ async function activosRestaurantes() {
 }
 
 async function inactivosRestaurantes() {
-
     let restaurante = await Restaurante.findAll({
         where: {
             activo: false
