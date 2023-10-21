@@ -1,4 +1,4 @@
-const { Platillo } = require("../db")
+const { Platillo, Restaurante } = require("../db")
 
 const crearPlatillo = async ( platillo ) => {
     try {
@@ -12,7 +12,10 @@ const crearPlatillo = async ( platillo ) => {
             stock:     platillo.stock,
             activo:     platillo.activo        
         }
-        const nuevoPlatillo = Platillo.create(infoPlatillo);
+        const restaurante = await Restaurante.findByPk(id_restaurante)
+        if(!restaurante) return null
+        const nuevoPlatillo = await Platillo.create(infoPlatillo);
+        await nuevoPlatillo.setRestaurante(restaurante);
         return nuevoPlatillo
     } catch (error) {
         return error
@@ -41,7 +44,24 @@ const actualizarPlatillo = async(platillo) => {
     }
 }
 
+const getPlatillos = async (id_restaurante) => {
+    try {
+        console.log(1);
+        const restaurantCheck = await Restaurante.findByPk(id_restaurante)
+        console.log(2);
+        if (!restaurantCheck) return null
+        const platillos = await Platillo.findAll({where: {
+            restauranteId: id_restaurante
+        }})
+        console.log(platillos);
+        return platillos
+    } catch (error) {
+        return error   
+    }
+}
+
 module.exports = {
     crearPlatillo,
-    actualizarPlatillo
+    actualizarPlatillo,
+    getPlatillos
 }
