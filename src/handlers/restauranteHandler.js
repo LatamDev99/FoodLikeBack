@@ -1,15 +1,17 @@
-const { registro, todosRestaurantes, sesion, desactivarRestaurante, cambiarContrasena, activosRestaurantes, inactivosRestaurantes } = require("../controllers/restauranteController");
+const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes } = require("../controllers/restauranteController");
+
+/* Nuevo registro de restaurante */
 
 const nuevoRegistro = async(req, res) => {
     try {
        let nuevoRestaurante = await registro(req.body)
        res.status(200).json(nuevoRestaurante)
-
     } catch (error) {
-        console.log(error)
         res.status(400).json(error)
     }
 }
+
+/* Inicio sesión de restaurante */
 
 const inicioSesion = async(req, res) => {
     try {
@@ -20,20 +22,25 @@ const inicioSesion = async(req, res) => {
     }
 }
 
+/* Obtener todos los restaurantes */
+
 const obtenerRestaurantes = async(req, res) => {
     let restaurante = await todosRestaurantes()
     res.status(200).json(restaurante)
 }
 
+/* Activar o desactivar un restaurante */
 
-const desactivarCuentaRestaurante = async(req, res) => {
+const desActCuentaRestaurante = async(req, res) => {
     try {
-        let restaurante = await desactivarRestaurante(req.body)
+        let restaurante = await restauranteDesAct(req.body)
         res.status(200).json(restaurante)
     } catch (error) {
         res.status(400).json(error)
     }
 }
+
+/* Actualizar contraseña del restaurante */
 
 const actualizarContrasenaRestaurante = async(req, res) => {
     try {
@@ -45,6 +52,7 @@ const actualizarContrasenaRestaurante = async(req, res) => {
     }
 }
 
+/* Todos los restaurantes activos */
 
 const todosActivosRestaurantes = async(req, res) => {
     try {
@@ -58,6 +66,8 @@ const todosActivosRestaurantes = async(req, res) => {
         res.status(500).json(error);
     }
 }
+
+/* Todos los restaurantes inactivos */
 
 const todosInactivosRestaurantes = async(req, res) => {
     try {
@@ -77,7 +87,7 @@ module.exports = {
     nuevoRegistro, 
     obtenerRestaurantes, 
     inicioSesion,
-    desactivarCuentaRestaurante, 
+    desActCuentaRestaurante, 
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
     todosInactivosRestaurantes 

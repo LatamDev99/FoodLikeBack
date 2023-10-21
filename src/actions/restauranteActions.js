@@ -1,17 +1,13 @@
 const bcrypt = require("bcrypt")
 
-/*
-Funcion para hashear la contraseña, tiene la contraseña la contraseña por parametro
-*/
+/* Funcion para hashear la contraseña, tiene la contraseña la contraseña por parametro */
 const crearContrasenaHash =  async (  contrasena  ) =>   {
     const rounds = 8;
     const passwordHash = await bcrypt.hash( contrasena, rounds  );
     return passwordHash
 }
 
-/*
-Funcion para vericar la contraseña, tiene la contraseña la contraseña como parametro
-*/
+/* Funcion para vericar la contraseña, tiene la contraseña la contraseña como parametro */
 
 const verificarContrasenaHash = async (  contrasena , contrasenaHash  ) =>   {
 
@@ -20,9 +16,7 @@ const verificarContrasenaHash = async (  contrasena , contrasenaHash  ) =>   {
     return passwordHash
 }
 
-/*
-Funcion para verificar el correo, tiene el correo como parámetro
-*/
+/* Funcion para verificar el correo, tiene el correo como parámetro */
 
 const verificarCorreo = (  correo  ) => {
 
@@ -32,9 +26,7 @@ const verificarCorreo = (  correo  ) => {
     return esValido  
 }
 
-/*
-Funcion para verificar el teléfono, tiene el teléfono como parámetro
-*/
+/* Funcion para verificar el teléfono, tiene el teléfono como parámetro */
 
 const verificarTelefono = ( telefono ) =>{
 
@@ -52,10 +44,7 @@ const verificarTelefono = ( telefono ) =>{
     }
 }
 
-/*
-Funcion para verificar cuenta bancaria, tiene cuenta bancaria como parámetro
-*/
-
+/* Funcion para verificar cuenta bancaria, tiene cuenta bancaria como parámetro */
 
 const verificarCuentaBancaria = (   cuentaBancaria  ) =>{
 
