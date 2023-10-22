@@ -1,19 +1,25 @@
-const { Review } = require("../db.js")
+const { Review, Restaurante, Cliente } = require("../db.js")
 
 /* Función para registrar un Review */ 
 
+
+
 const registroReview = async( review ) => {
-    const {comentario, calificacion, activo, usuario, restaurante} = review
+    const {comentario, calificacion, activo, usuario, usuarioId,  restauranteId} = review
+
+    console.log(usuarioId , restauranteId)
 
     let objetoReview = {
         comentario, 
         calificacion, 
         activo,
         usuario,
-        restaurante
+        usuarioId,
+        restauranteId
         }  
+    await Review.create(objetoReview)
 
-    await Review.create(objetoReview) 
+
         return "Review registrado con éxito"
 }
 
@@ -26,11 +32,11 @@ const todosReviews = async () =>{
 
 const reviewDesAct = async ( review ) =>{
 
-    let reviewDesact = await Review.findOne({
-        where: {
-            usuario: review.usuario
-        }
-    })
+    const { id } = review
+
+    let reviewDesact = await Review.findByPk(
+            id
+    )
 
     if(reviewDesact.activo){
         reviewDesact.activo = false
@@ -46,7 +52,7 @@ const reviewDesAct = async ( review ) =>{
 
 /* Función para ver Reviews activos */
 
-const activosReviews = async () =>{
+const activosReviews = async (  ) =>{
 
     let review = await Review.findAll({
         where: {
@@ -59,7 +65,7 @@ const activosReviews = async () =>{
 
 /* Función para ver Reviews inactivos */
 
-const inactivosReviews = async () =>{
+const inactivosReviews = async ( restaurante ) =>{
 
     let review = await Review.findAll({
         where: {

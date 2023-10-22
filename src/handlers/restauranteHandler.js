@@ -1,4 +1,4 @@
-const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes } = require("../controllers/restauranteController");
+const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes} = require("../controllers/restauranteController");
 
 /* Nuevo registro de restaurante */
 
@@ -83,6 +83,8 @@ const todosInactivosRestaurantes = async(req, res) => {
     }
 }
 
+
+
 module.exports = {
     nuevoRegistro, 
     obtenerRestaurantes, 
@@ -90,5 +92,6 @@ module.exports = {
     desActCuentaRestaurante, 
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
-    todosInactivosRestaurantes 
+    todosInactivosRestaurantes,
+
 }

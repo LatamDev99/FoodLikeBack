@@ -47,12 +47,12 @@ Platillo.belongsTo(Restaurante, { foreignKey: "restauranteId"});
 Crear la relacion entre Restaurante y Marca, la marca puede tener varios restaurantes pero los restaurates solo una marca
 */
 Marca.hasMany(Restaurante, { foreignKey: 'marcaId' });
-Restaurante.belongsTo(Marca, { foreignKey: 'marcaId' });
+Restaurante.belongsTo(Marca, { foreignKey: 'marcaId' });         
 /*
 Crear la relacion entre Cliente y Review, el cliente puede hacer varios reviews pero el review solo pertenece a un cliente
 */
 Cliente.hasMany(Review, { foreignKey:"clienteId"});
-Review.belongsTo(Cliente, { foreignKey:"clienteId"});
+Review.belongsTo(Cliente, { foreignKey:"clienteId"});          /*Listo*/
 /*
 Crear la relacion entre Review y Restaurante, la review solo puede pertenecer a un restaurante pero el restaurante puede tener varios reviews
 */
