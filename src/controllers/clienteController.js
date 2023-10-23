@@ -8,6 +8,11 @@ const {
     verificarContrasenaValida
 } = require("../actions/clienteActions.js")
 
+
+const{
+    enlazaUsuarioACarrito
+}
+= require("./carrosController.js")
 /*
 Funcion para registrar nuevo cliente
 */
@@ -31,11 +36,13 @@ async function registro(cliente) {
         telefono: cliente.telefono
     }
 
-    await Cliente.create(nuevoCliente)
+    const clienteCarro = await Cliente.create(nuevoCliente)
 
     if (nuevoCliente.nombre.length == 0) {
         return "Ups, hubo un error"
     }
+
+    await enlazaUsuarioACarrito(clienteCarro.id)
 
     return "Usuario creado con exito"
 }

@@ -44,14 +44,15 @@ const registro = async( restaurante ) => {
                                     alcance,
                                     activo
                                     }  
-            await Restaurante.create(objetoRestaurante)           
-                                    
+        const rest =   await Restaurante.create(objetoRestaurante)           
+        console.log(rest.id)                   
         }else{    
             return "Ya existe un restaurante registrado con ese correo"
         }
     }else{
         return "Correo inválido"
     } 
+        
     return "Registrado con éxito"
 }
 
