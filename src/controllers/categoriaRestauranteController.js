@@ -1,17 +1,17 @@
 const {
-    CategoriaPlatillo
+    CategoriaRestaurante
 } = require("../db.js")
 
 const agregarCategorias = async( categoria ) =>{
 
-    const categoriaAgregada = await CategoriaPlatillo.findOne(
+    const categoriaAgregada = await CategoriaRestaurante.findOne(
         {where : {
             nombre: categoria.nombre
         }}
     )
 
     if (categoriaAgregada== null){
-        return await CategoriaPlatillo.create(categoria)
+        return await CategoriaRestaurante.create(categoria)
     }else{
         return categoriaAgregada
     }
@@ -19,7 +19,7 @@ const agregarCategorias = async( categoria ) =>{
 
 
 const traerCategorias = async() =>{
-    let categoria = await CategoriaPlatillo.findAll()
+    let categoria = await CategoriaRestaurante.findAll()
     return categoria
 }
 

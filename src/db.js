@@ -41,22 +41,26 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, Categoria } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, CategoriaPlatillo, CategoriaRestaurante } = sequelize.models;
 /*Relacion de platillos con categorias de uno a muchos y de muchos a uno */
 
-Categoria.hasMany(Platillo, { foreignKey:"categoriaId"});   
-Platillo.belongsTo(Categoria, { foreignKey:"categoriaId"});
+CategoriaPlatillo.hasMany(Platillo, { foreignKey:"categoriaId"});   
+Platillo.belongsTo(CategoriaPlatillo, { foreignKey:"categoriaId"});
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */
 Restaurante.hasMany(Platillo, { foreignKey: "restauranteId"});
 Platillo.belongsTo(Restaurante, { foreignKey: "restauranteId"});
-
+/*
+Crear las relaciones de muchos a muchos entre Restaurantes y Categorias
+*/
+Restaurante.belongsToMany(CategoriaRestaurante, { through:"Categorias"});
+CategoriaRestaurante.belongsToMany(Restaurante, { through:"Categorias"});
 /*
 Crear relacion de muchos a muchos Cliente y Categoria, con una tabla intermedia llamada preferencias
 */
-Cliente.belongsToMany(Categoria, { through:"preferencias"});
-Categoria.belongsToMany(Cliente, { through:"preferencias"});
+//Cliente.belongsToMany(Categoria, { through:"preferencias"});
+//Categoria.belongsToMany(Cliente, { through:"preferencias"});
 /*
 Crear la relacion entre Restaurante y Marca, la marca puede tener varios restaurantes pero los restaurates solo una marca
 */

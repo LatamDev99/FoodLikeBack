@@ -1,4 +1,4 @@
-const { Platillo, Restaurante, Categoria } = require("../db")
+const { Platillo, Restaurante, CategoriaPlatillo } = require("../db")
 
 const crearPlatillo = async ( platillo ) => {
    
@@ -15,7 +15,7 @@ const crearPlatillo = async ( platillo ) => {
         }
         
         const restaurante = await Restaurante.findByPk(restauranteId)
-        const categoria = await Categoria.findByPk(categoriaId)
+        const categoria = await CategoriaPlatillo.findByPk(categoriaId)
         
         if(!restaurante) return "El restaurante no existe"
         if(!categoria) return "La categoría no existe"
