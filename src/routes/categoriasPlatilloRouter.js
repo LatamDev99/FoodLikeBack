@@ -7,8 +7,5 @@ const categoriasPlatilloRouter = express.Router();
 categoriasPlatilloRouter.get('/todos', todasLasCategorias);
 categoriasPlatilloRouter.post('/agregar', agregarCategoria);
 
-// carroDeCompras.patch('/platillo', agregarPlatilloCarrito);
-// carroDeCompras.patch('/platilloelim', eliminarPlatilloCarrito);
-
 
 module.exports = categoriasPlatilloRouter;

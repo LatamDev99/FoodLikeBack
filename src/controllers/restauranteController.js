@@ -62,9 +62,7 @@ const registro = async( restaurante ) => {
                 await rest.addCategoriaRestaurante(categoria)
             }
            }
-        }
-
-        
+        }        
 
         }else{    
             return "Ya existe un restaurante registrado con ese correo"
