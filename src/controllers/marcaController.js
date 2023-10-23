@@ -147,13 +147,19 @@ async function cambiarContrasena(marca) {
 /*
 Funcion para asociar un Restaurante a una Marca
 */
-async function asociarRestaurante(marcaId, restauranteiD) {
+async function asociarRestaurante(marcaId, restauranteId) {
     let marcaRegistrada = await Marca.findByPk(marcaId)
     if (marcaRegistrada == null) {
         return "No se encontro la marca"
     }
+
+    let restauranteRegistrado = await Restaurante.findByPk(restauranteId)
+    if (restauranteRegistrado == null) {
+        return "No se encontro el restaurante"
+    }
+
     //Asociar la marca al restaurante
-    await marcaRegistrada.addRestaurante(restauranteiD)
+    await marcaRegistrada.addRestaurante(restauranteId)
     return "Afiliado con exito"
 }
 module.exports = {

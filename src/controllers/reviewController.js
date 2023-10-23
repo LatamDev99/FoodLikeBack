@@ -5,22 +5,22 @@ const { Review, Restaurante, Cliente } = require("../db.js")
 
 
 const registroReview = async( review ) => {
-    const {comentario, calificacion, activo, usuario, usuarioId,  restauranteId} = review
+    const {comentario, calificacion, activo , usuarioId,  restauranteId} = review
 
-    console.log(usuarioId , restauranteId)
-
+    console.log(usuarioId, restauranteId)
     let objetoReview = {
         comentario, 
         calificacion, 
-        activo,
-        usuario,
-        usuarioId,
-        restauranteId
-        }  
-    await Review.create(objetoReview)
+        activo
+        } 
 
+    const restaurante = await Restaurante.findByPk(restauranteId)
+    const cliente = await Cliente.findByPk(usuarioId)
+    const nuevoReview = await Review.create(objetoReview)
+    await nuevoReview.setCliente(cliente);
+    await nuevoReview.setRestaurante(restaurante);
 
-        return "Review registrado con éxito"
+    return "Review registrado con éxito"
 }
 
 /* Función para obtener todos los Reviews */ 
