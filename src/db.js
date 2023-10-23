@@ -37,12 +37,18 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca, Carrito } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, Categoria } = sequelize.models;
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */
 Restaurante.hasMany(Platillo, { foreignKey: "restauranteId"});
 Platillo.belongsTo(Restaurante, { foreignKey: "restauranteId"});
+
+/*Relacion de platillos con categorias de uno a muchos y de muchos a uno */
+
+Categoria.hasMany(Platillo, { foreignKey:"categoriaId"});   
+Platillo.belongsTo(Categoria, { foreignKey:"categoriaId"});
+
 /*
 Crear la relacion entre Restaurante y Marca, la marca puede tener varios restaurantes pero los restaurates solo una marca
 */
@@ -70,7 +76,7 @@ Platillo.belongsToMany(Carrito, { through:"carrito"});
 Carrito.belongsToMany(Platillo, { through:"carrito"});         /*Listo*/
 
 
-
+                  
 
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

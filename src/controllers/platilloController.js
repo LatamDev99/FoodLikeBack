@@ -1,8 +1,9 @@
-const { Platillo, Restaurante } = require("../db")
+const { Platillo, Restaurante, Categoria } = require("../db")
 
 const crearPlatillo = async ( platillo ) => {
     try {
         const id_restaurante = platillo.id_restaurante;
+        const id_categoria = platillo.id_categoria
 
         const infoPlatillo = {
             nombre:     platillo.nombre , 
@@ -13,14 +14,22 @@ const crearPlatillo = async ( platillo ) => {
             stock:     platillo.stock,
             activo:     platillo.activo        
         }
+        
         const restaurante = await Restaurante.findByPk(id_restaurante)
+        const categoria = await Categoria.findByPk(id_categoria)
+
+        console.log(categoria)
         if(!restaurante) return null
+        
         const nuevoPlatillo = await Platillo.create(infoPlatillo);
         await nuevoPlatillo.setRestaurante(restaurante);
+        await nuevoPlatillo.setCategoria(categoria)
+
         return nuevoPlatillo
     } catch (error) {
         return error
     }
+
 }
 
 const actualizarPlatillo = async(platillo) => {
@@ -64,7 +73,7 @@ const getPlatillos = async (id_restaurante) => {
 
 const todosPlatillos = async () =>{
     let platillos = await Platillo.findAll()
-    
+
     return platillos
 }
 
