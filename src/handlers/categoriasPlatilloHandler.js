@@ -1,5 +1,5 @@
 
-const { agregarCategorias, traerCategorias } = require("../controllers/categoriasController")
+const { agregarCategorias, traerCategorias } = require("../controllers/categoriasPlatilloController")
 
 const agregarCategoria = async(req,res) =>{
     try {

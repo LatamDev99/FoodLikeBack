@@ -7,7 +7,7 @@ const platilloRouter = require("./platilloRouter")
 const reviewRouter = require("./reviewRouter")
 const marcaRouter = require("./marcaRouter")
 const carritoDeComprasRouter = require("./carritoDeComprasRouter")
-const categoriasRouter = require("./categoriasRouter")
+const categoriasPlatilloRouter = require("./categoriasPlatilloRouter")
 const catergoriasRestauranteRouter = require("./categoriaRestauranteRouter")
 
 const router = Router();
@@ -19,7 +19,7 @@ router.use("/platillo", platilloRouter)
 router.use("/review", reviewRouter)
 router.use("/marca", marcaRouter)
 router.use("/carro", carritoDeComprasRouter)
-router.use("/categoria", categoriasRouter)
+router.use("/categoria", categoriasPlatilloRouter)
 router.use("/categoriaRestaurante", catergoriasRestauranteRouter)
 
 
