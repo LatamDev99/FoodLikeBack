@@ -8,6 +8,10 @@ const sequelize = new Sequelize(DB_URL,
    {
       logging: false, // set to console.log to see the raw SQL queries
       native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+      define: {
+         timestamps: false,  // Puedes establecer esto como true si deseas usar timestamps
+         underscored: true,  // Esta opción convierte los nombres de las columnas en snake_case
+       },
    }
 );
 const basename = path.basename(__filename);
@@ -38,17 +42,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
 const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, Categoria } = sequelize.models;
+/*Relacion de platillos con categorias de uno a muchos y de muchos a uno */
+
+Categoria.hasMany(Platillo, { foreignKey:"categoriaId"});   
+Platillo.belongsTo(Categoria, { foreignKey:"categoriaId"});
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */
 Restaurante.hasMany(Platillo, { foreignKey: "restauranteId"});
 Platillo.belongsTo(Restaurante, { foreignKey: "restauranteId"});
 
-/*Relacion de platillos con categorias de uno a muchos y de muchos a uno */
-
-Categoria.hasMany(Platillo, { foreignKey:"categoriaId"});   
-Platillo.belongsTo(Categoria, { foreignKey:"categoriaId"});
-
+/*
+Crear relacion de muchos a muchos Cliente y Categoria, con una tabla intermedia llamada preferencias
+*/
+Cliente.belongsToMany(Categoria, { through:"preferencias"});
+Categoria.belongsToMany(Cliente, { through:"preferencias"});
 /*
 Crear la relacion entre Restaurante y Marca, la marca puede tener varios restaurantes pero los restaurates solo una marca
 */

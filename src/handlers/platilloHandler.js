@@ -8,13 +8,8 @@ const {
 const postPlatillo = async(req, res) => {
     try {
         const response = await crearPlatillo( req.body );
-        if (response === null){
-            res.status(400).json(`no se encontro restaurante con el id`)
-        }else{
-            res.status(200).json(response);
-        }
+        res.status(200).json(response);
     } catch (error) {
-    
         res.status(400).json(error.message);
     };
 };

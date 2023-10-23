@@ -1,5 +1,6 @@
 const {
-    Cliente
+    Cliente,
+    Categoria
 } = require("../db.js")
 const {
     crearContrasenaHash,
@@ -28,6 +29,8 @@ async function registro(cliente) {
         return "Contraseña inválida"
     }
 
+    const preferencias = cliente.preferencias;
+
     let nuevoCliente = {
         nombre: cliente.nombre,
         contrasena: await crearContrasenaHash(cliente.contrasena),
@@ -44,6 +47,16 @@ async function registro(cliente) {
 
     await enlazaUsuarioACarrito(clienteCarro.id)
 
+    if (preferencias && preferencias.length > 0) {
+        for (const categoriaId of preferencias) {
+            const categoria = await Categoria.findByPk(categoriaId);
+            if (categoria) {
+                await clienteCarro.addCategoria(categoria);
+            }
+        }
+    }
+
+
     return "Usuario creado con exito"
 }
 /*
@@ -53,7 +66,8 @@ async function sesion(credencial) {
     let cliente = await Cliente.findOne({
         where: {
             correo: credencial.correo,
-        }
+        },
+        include: Categoria
     })
     //Si no encuentra el email en la base de datos retorna false y si lo encuentra compara las contraseñas
     if (!cliente) {
