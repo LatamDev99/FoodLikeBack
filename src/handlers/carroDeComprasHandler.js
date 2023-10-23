@@ -1,7 +1,8 @@
 const {
     todosCarritos,
     agregarPlatillosAlCarrito,
-    eliminarPlatillodelCarrito
+    eliminarPlatillodelCarrito,
+    obtenerCarritoPorId
 } = require("../controllers/carrosController");
 
 /* Función para crear nuevos carritos */
@@ -42,8 +43,21 @@ const todosCarros = async(req, res) => {
     }
 }
 
+const buscarCarroId = async(req, res) => {
+
+    try {
+        let review = await obtenerCarritoPorId(req.body)
+
+        res.status(200).json(review)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+}
+
 module.exports = {
     agregarPlatilloCarrito,
     todosCarros,
-    eliminarPlatilloCarrito
+    eliminarPlatilloCarrito,
+    buscarCarroId
 }

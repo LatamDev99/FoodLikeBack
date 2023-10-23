@@ -20,9 +20,8 @@ const enlazaUsuarioACarrito = async( idCliente ) => {
     return "Carrito registrado con éxito"
 }
 
-/*Función para agregar Platillos al Carrito 
+/*Función para agregar Platillos al Carrito */
 
-FALTA AGREGAR MÁS IDS*/ 
 
 const agregarPlatillosAlCarrito = async ( carrito ) =>{
 
@@ -31,7 +30,7 @@ const agregarPlatillosAlCarrito = async ( carrito ) =>{
 
     const car = await Carrito.findByPk(carritoId)
     if (car == null) {
-        return "No se encontro el carrito"
+        return `No se encontro el carrito ${carritoId}`
     }
     const platillo = await Platillo.findByPk(platilloId)
     if (platillo == null) {
@@ -44,9 +43,11 @@ const agregarPlatillosAlCarrito = async ( carrito ) =>{
             include: Platillo
     }) 
 
-    return "Platillo agregado con éxito"
+    return "Platillo agregado al carrito"
 
 }
+
+/* Función para eliminar Platillos al Carrito */
 
 const eliminarPlatillodelCarrito = async ( carrito ) =>{
 
@@ -65,9 +66,7 @@ const eliminarPlatillodelCarrito = async ( carrito ) =>{
             include: Platillo
     }) 
 
-    return nuevoCarrito
-
-    return "Platillo agregado con éxito"
+    return "Platillo eliminado del Carrito"
 
 }
 
@@ -79,11 +78,25 @@ const todosCarritos = async () =>{
     return reviews
 }
 
+/* Obtener Carrito del Usuario por Id*/
+
+const obtenerCarritoPorId = async ( carrito ) =>{
+    const { carritoId } = carrito
+    const car = await Carrito.findByPk(carritoId,{
+        include: Platillo
+    })
+    if (car == null) {
+        return "No se encontro el carrito"
+    }
+    return car
+}
+
 
 
 module.exports={
     enlazaUsuarioACarrito,
     agregarPlatillosAlCarrito,
     todosCarritos,
-    eliminarPlatillodelCarrito
+    eliminarPlatillodelCarrito,
+    obtenerCarritoPorId
 }
