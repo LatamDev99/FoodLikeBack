@@ -29,27 +29,43 @@ const agregarPlatillosAlCarrito = async ( carrito ) =>{
     const {carritoId , platilloId} = carrito
 
 
-     const car = await Carrito.findByPk(carritoId)
+    const car = await Carrito.findByPk(carritoId)
+    if (car == null) {
+        return "No se encontro el carrito"
+    }
+    const platillo = await Platillo.findByPk(platilloId)
+    if (platillo == null) {
+        return `No se encuentra el platillo ${platilloId}`
+    }
+
+    await car.addPlatillo(platillo);  
+    
+    const nuevoCarrito = await Carrito.findByPk(car.id,{
+            include: Platillo
+    }) 
+
+    return "Platillo agregado con éxito"
+
+}
+
+const eliminarPlatillodelCarrito = async ( carrito ) =>{
+
+    const {carritoId , platilloId} = carrito
+
+
+    const car = await Carrito.findByPk(carritoId)
     if (car == null) {
         return "No se encontro el carrito"
     }
 
+    await car.removePlatillo(platilloId)
 
-    for (let i=0; i<platilloId.length; i++){
-        const platillo = await Platillo.findByPk(platilloId[i])
-        if (platillo == null) {
-            return `No se encuentro platillo ${platilloId[i]}`
-        }
-    }
     
+    const nuevoCarrito = await Carrito.findByPk(car.id,{
+            include: Platillo
+    }) 
 
-    console.log(platilloId.length)
-
-    const updates = {
-        platillos : platilloId  
-    }
-    await car.update(updates);  
- 
+    return nuevoCarrito
 
     return "Platillo agregado con éxito"
 
@@ -58,7 +74,8 @@ const agregarPlatillosAlCarrito = async ( carrito ) =>{
 /* Traer todos los Carritos */ 
 
 const todosCarritos = async () =>{
-    let reviews = await Carrito.findAll()
+    let reviews = await Carrito.findAll({
+        include: Platillo})
     return reviews
 }
 
@@ -67,5 +84,6 @@ const todosCarritos = async () =>{
 module.exports={
     enlazaUsuarioACarrito,
     agregarPlatillosAlCarrito,
-    todosCarritos
+    todosCarritos,
+    eliminarPlatillodelCarrito
 }

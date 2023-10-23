@@ -14,10 +14,10 @@ module.exports = (sequelize) => {
       defaultValue: true,
   
     },
-    platillos: {
-      type: DataTypes.JSON,
-      allowNull: true
-    }
+    // platillos: {
+    //   type: DataTypes.JSON,
+    //   allowNull: true
+    // }
   }, {
     timestamps: false
   });
