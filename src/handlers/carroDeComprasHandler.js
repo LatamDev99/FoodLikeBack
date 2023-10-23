@@ -5,7 +5,7 @@ const {
     obtenerCarritoPorId
 } = require("../controllers/carrosController");
 
-/* Función para crear nuevos carritos */
+/* Función para agregar platillos al Carrito */
  
 const agregarPlatilloCarrito = async(req, res) => {
     try {
@@ -16,8 +16,9 @@ const agregarPlatilloCarrito = async(req, res) => {
         console.log(error)
         res.status(400).json(error)
     }
-}
 
+
+}
 
 const eliminarPlatilloCarrito = async(req, res) => {
     try {
@@ -42,6 +43,8 @@ const todosCarros = async(req, res) => {
         res.status(400).json(error)
     }
 }
+
+/* Función para buscar Carrito por Id */ 
 
 const buscarCarroId = async(req, res) => {
 

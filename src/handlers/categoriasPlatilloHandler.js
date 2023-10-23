@@ -25,7 +25,4 @@ const todasLasCategorias = async(req,res) =>{
 
 
 
-
-
-
 module.exports=  {agregarCategoria, todasLasCategorias  } 
