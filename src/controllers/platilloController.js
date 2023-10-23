@@ -1,57 +1,53 @@
 const { Platillo, Restaurante, Categoria } = require("../db")
 
 const crearPlatillo = async ( platillo ) => {
-    try {
-        const id_restaurante = platillo.id_restaurante;
-        const id_categoria = platillo.id_categoria
+   
+    const { restauranteId, categoriaId, nombre, descripcion, precio, foto, promo ,stock, activo} = platillo
 
-        const infoPlatillo = {
-            nombre:     platillo.nombre , 
-            descripcion:     platillo.descripcion,
-            precio:     platillo.precio,
-            foto:     platillo.foto,
-            promo:     platillo.promo,
-            stock:     platillo.stock,
-            activo:     platillo.activo        
+    const infoPlatillo = {
+            nombre,
+            descripcion,
+            precio,
+            foto,
+            promo,
+            stock,
+            activo      
         }
         
-        const restaurante = await Restaurante.findByPk(id_restaurante)
-        const categoria = await Categoria.findByPk(id_categoria)
-
-        console.log(categoria)
-        if(!restaurante) return null
+        const restaurante = await Restaurante.findByPk(restauranteId)
+        const categoria = await Categoria.findByPk(categoriaId)
+        
+        if(!restaurante) return "El restaurante no existe"
+        if(!categoria) return "La categoría no existe"
         
         const nuevoPlatillo = await Platillo.create(infoPlatillo);
         await nuevoPlatillo.setRestaurante(restaurante);
-        await nuevoPlatillo.setCategoria(categoria)
+        await categoria.addPlatillo(nuevoPlatillo)
 
-        return nuevoPlatillo
-    } catch (error) {
-        return error
-    }
-
+        return await Platillo.findByPk(nuevoPlatillo.id)
 }
 
 const actualizarPlatillo = async(platillo) => {
-    try {
-        const id = platillo.id
-        const platilloDb = await Platillo.findByPk(id);
+
+    const { platilloId, nombre, descripcion, precio , foto , promo , stock  , activo  } = platillo
+
+        const platilloDb = await Platillo.findByPk(platilloId);
         if(!platilloDb){
-            throw new Error(`no se encontro platillo con id ${id}`)
+            throw new Error(`no se encontro platillo con id ${platilloId}`)
         }
-        const updates = {}
-        if(platillo.nombre) updates.platillo = platillo.nombre;
-        if(platillo.descripcion) updates.descripcion = platillo.descripcion;
-        if(platillo.precio) updates.precio = platillo.precio;
-        if(platillo.foto) updates.foto = platillo.foto;
-        if(platillo.promo) updates.promo = platillo.promo;
-        if(platillo.stock) updates.stock = platillo.stock;
-        if(platillo.activo === true || platillo.activo === false) updates.activo = platillo.activo;
+        /*hacer validaciones en los actions*/
+        const updates = {
+            nombre,
+            descripcion,
+            foto,
+            promo,
+            stock,
+            activo
+        }
+        
         await platilloDb.update(updates);
         return platilloDb
-    } catch (error) {
-        return error
-    }
+  
 }
 
 const getPlatillos = async (id_restaurante) => {

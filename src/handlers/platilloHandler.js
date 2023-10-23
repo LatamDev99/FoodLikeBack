@@ -22,7 +22,7 @@ const postPlatillo = async(req, res) => {
 const patchPlatillo = async (req, res) => {
     try{
         const response = await actualizarPlatillo( req.body );
-        res.status(201).json(response);
+        res.status(200).json(response);
     } catch (error) {
         res.status(400).json(error.message);
     };
