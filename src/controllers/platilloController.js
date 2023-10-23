@@ -3,6 +3,7 @@ const { Platillo, Restaurante } = require("../db")
 const crearPlatillo = async ( platillo ) => {
     try {
         const id_restaurante = platillo.id_restaurante;
+
         const infoPlatillo = {
             nombre:     platillo.nombre , 
             descripcion:     platillo.descripcion,
@@ -46,14 +47,15 @@ const actualizarPlatillo = async(platillo) => {
 
 const getPlatillos = async (id_restaurante) => {
     try {
-        console.log(1);
+        
         const restaurantCheck = await Restaurante.findByPk(id_restaurante)
-        console.log(2);
+
         if (!restaurantCheck) return null
         const platillos = await Platillo.findAll({where: {
             restauranteId: id_restaurante
         }})
-        console.log(platillos);
+            
+
         return platillos
     } catch (error) {
         return error   

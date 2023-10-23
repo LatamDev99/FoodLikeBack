@@ -34,10 +34,6 @@ async function registro(marca) {
 
     await Marca.create(nuevaMarca)
 
-    if (nuevaMarca.nombre.length == 0) {
-        return "Ups, hubo un error"
-    }
-
     return "Usuario creado con exito"
 }
 /*

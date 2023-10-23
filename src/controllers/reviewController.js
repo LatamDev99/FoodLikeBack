@@ -1,13 +1,10 @@
 const { Review, Restaurante, Cliente } = require("../db.js")
 
-/* Función para registrar un Review */ 
-
-
+/* Función para registrar un Review, asociando al cliente y el restaurante */ 
 
 const registroReview = async( review ) => {
     const {comentario, calificacion, activo , usuarioId,  restauranteId} = review
 
-    console.log(usuarioId, restauranteId)
     let objetoReview = {
         comentario, 
         calificacion, 
@@ -15,7 +12,15 @@ const registroReview = async( review ) => {
         } 
 
     const restaurante = await Restaurante.findByPk(restauranteId)
+    if (restaurante == null) {
+        return "No se encontro el restaurante"
+    }
+
     const cliente = await Cliente.findByPk(usuarioId)
+    if (cliente == null) {
+        return "No se encontro el cliente"
+    }
+
     const nuevoReview = await Review.create(objetoReview)
     await nuevoReview.setCliente(cliente);
     await nuevoReview.setRestaurante(restaurante);
