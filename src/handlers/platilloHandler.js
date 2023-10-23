@@ -1,7 +1,8 @@
 const { 
     crearPlatillo,
     actualizarPlatillo,
-    getPlatillos
+    getPlatillos,
+    todosPlatillos
  } = require ("../controllers/platilloController")
 
 const postPlatillo = async(req, res) => {
@@ -40,8 +41,17 @@ const getPlatillosRestaurante = async (req, res) => {
     }
 }
 
+/* Trae todos los platillos */
+
+const todosLosPlatillos = async (req,res) =>{
+
+        let platillos = await todosPlatillos()
+        res.status(200).json(platillos)
+}
+
 module.exports = {
     postPlatillo,
     patchPlatillo,
-    getPlatillosRestaurante
+    getPlatillosRestaurante,
+    todosLosPlatillos
 }

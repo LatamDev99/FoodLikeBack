@@ -62,8 +62,16 @@ const getPlatillos = async (id_restaurante) => {
     }
 }
 
+const todosPlatillos = async () =>{
+    let platillos = await Platillo.findAll()
+    
+    return platillos
+}
+
+
 module.exports = {
     crearPlatillo,
     actualizarPlatillo,
-    getPlatillos
+    getPlatillos,
+    todosPlatillos
 }

@@ -5,7 +5,7 @@ const {
 
 /* Función para crear nuevos carritos */
  
-const registrarPlatillo = async(req, res) => {
+const agregarPlatilloCarrito = async(req, res) => {
     try {
         let review = await agregarPlatillosAlCarrito(req.body)
 
@@ -28,9 +28,7 @@ const todosCarros = async(req, res) => {
     }
 }
 
-
-
 module.exports = {
-    registrarPlatillo,
+    agregarPlatilloCarrito,
     todosCarros
 }

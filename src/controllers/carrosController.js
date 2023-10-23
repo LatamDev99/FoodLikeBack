@@ -5,36 +5,24 @@ const {
     Carrito
 } = require("../db.js")
 
-/* n*/ 
+/* Función que enlaza el primer carrito del Usuario */ 
 
 const enlazaUsuarioACarrito = async( idCliente ) => {
 
-    // const {clienteId, platilloId} = carrito
-
- 
-    // const restaurante = await Restaurante.findByPk(restauranteId)
-    // if (restaurante == null) {
-    //     return "No se encontro el restaurante"
-    // }
-
-    const cliente = await Cliente.findByPk(idCliente)
+   const cliente = await Cliente.findByPk(idCliente)
     if (cliente == null) {
         return "No se encontro el cliente"
     }
 
-    // const platillo = await Platillo.findByPk(platilloId)
-    // if (platillo == null) {
-    //     return "No se encontro el platillo"
-    // }
-
     const nuevoCarrito = await Carrito.create()
     await nuevoCarrito.setCliente(cliente);
-    // await nuevoCarrito.setRestaurante(restaurante);
-    // await nuevoCarrito.setPlatillo(platillo);
 
     return "Carrito registrado con éxito"
 }
 
+/*Función para agregar Platillos al Carrito 
+
+FALTA AGREGAR MÁS IDS*/ 
 
 const agregarPlatillosAlCarrito = async ( carrito ) =>{
 
@@ -46,12 +34,22 @@ const agregarPlatillosAlCarrito = async ( carrito ) =>{
         return "No se encontro el carrito"
     }
 
-     const platillo = await Platillo.findByPk(platilloId)
-    if (platillo == null) {
-        return "No se encontro el platillo"
-    }
 
-    await car.setPlatillo(platillo);
+    for (let i=0; i<platilloId.length; i++){
+        const platillo = await Platillo.findByPk(platilloId[i])
+        if (platillo == null) {
+            return `No se encuentro platillo ${platilloId[i]}`
+        }
+    }
+    
+
+    console.log(platilloId.length)
+
+    const updates = {
+        platillos : platilloId  
+    }
+    await car.update(updates);  
+ 
 
     return "Platillo agregado con éxito"
 

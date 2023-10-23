@@ -62,9 +62,6 @@ Review.belongsTo(Restaurante, { foreignKey:"restauranteId"});     /*Listo*/
 Cliente.hasMany(Carrito, { foreignKey:"clienteId"});
 Carrito.belongsTo(Cliente, { foreignKey:"clienteId"});     
 
-Platillo.hasMany(Carrito, { foreignKey:"platilloId"});
-Carrito.belongsTo(Platillo, { foreignKey:"platilloId"});     
-
 
 
 module.exports = {

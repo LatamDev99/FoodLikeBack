@@ -1,10 +1,10 @@
 const express = require('express');
 
-const {  registrarPlatillo,todosCarros  } = require("../handlers/carroDeComprasHandler.js")
+const {  agregarPlatilloCarrito,todosCarros  } = require("../handlers/carroDeComprasHandler.js")
 
 const carroDeCompras = express.Router();
 
-carroDeCompras.patch('/platillo', registrarPlatillo);
+carroDeCompras.patch('/platillo', agregarPlatilloCarrito);
 carroDeCompras.get('/todos', todosCarros);
 
 module.exports = carroDeCompras;
