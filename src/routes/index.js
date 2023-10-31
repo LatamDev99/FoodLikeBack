@@ -19,7 +19,7 @@ router.use("/platillo", platilloRouter)
 router.use("/review", reviewRouter)
 router.use("/marca", marcaRouter)
 router.use("/carro", carritoDeComprasRouter)
-router.use("/categoria", categoriasPlatilloRouter)
+router.use("/categoriaPlatillo", categoriasPlatilloRouter)
 router.use("/categoriaRestaurante", catergoriasRestauranteRouter)
 
 

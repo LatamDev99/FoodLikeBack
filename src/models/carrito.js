@@ -12,12 +12,7 @@ module.exports = (sequelize) => {
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
-  
     },
-    // platillos: {
-    //   type: DataTypes.JSON,
-    //   allowNull: true
-    // }
   }, {
     timestamps: false
   });

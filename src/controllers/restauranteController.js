@@ -19,7 +19,14 @@ const registro = async( restaurante ) => {
         
         if (!restCuentaBancaria){
             return "Número de cuenta inválido"
-        } 
+        }
+        
+        for (const categoriaId of categorias){
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId)
+            if(!categoria){
+                return "No existe la categoría en el sistema"
+            }
+           }
         
 
         var rest = await Restaurante.findOne({
@@ -45,6 +52,7 @@ const registro = async( restaurante ) => {
                                     alcance,
                                     activo
                                     }  
+
         const rest =   await Restaurante.create(objetoRestaurante)           
         
         if(categorias.length > 0){
@@ -54,7 +62,7 @@ const registro = async( restaurante ) => {
                 await rest.addCategoriaRestaurante(categoria)
             }
            }
-        }
+        }        
 
         }else{    
             return "Ya existe un restaurante registrado con ese correo"
