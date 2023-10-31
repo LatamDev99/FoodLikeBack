@@ -23,12 +23,10 @@ const nuevoRegistro = async (req, res) => {
 Funcion handler para inicio de sesion de cliente
 */
 const inicioSesion = async (req, res) => {
-    console.log(req.body);
     try {
         let cliente = await sesion(req.body)
         res.status(200).json(cliente)
     } catch (error) {
-        console.log(error);
         res.status(400).json(error)
     }
 }

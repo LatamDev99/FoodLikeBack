@@ -65,7 +65,6 @@ async function registro(cliente) {
 Funcion para iniciar sesion
 */
 async function sesion(credencial) {
-    console.log(credencial);
     let cliente = await Cliente.findOne({
         where: {
             correo: credencial.correo,
