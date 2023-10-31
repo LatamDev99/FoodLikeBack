@@ -1,6 +1,6 @@
 const {
     Cliente,
-    Categoria
+    CategoriaRestaurante
 } = require("../db.js")
 const {
     crearContrasenaHash,
@@ -35,23 +35,25 @@ async function registro(cliente) {
         nombre: cliente.nombre,
         contrasena: await crearContrasenaHash(cliente.contrasena),
         correo: cliente.correo,
-        representante: cliente.representante,
+        apellido: cliente.apellido,
         telefono: cliente.telefono
     }
 
-    const clienteCarro = await Cliente.create(nuevoCliente)
+    const clienteCreado = await Cliente.create(nuevoCliente)
 
     if (nuevoCliente.nombre.length == 0) {
         return "Ups, hubo un error"
     }
 
-    await enlazaUsuarioACarrito(clienteCarro.id)
-
+    await enlazaUsuarioACarrito(clienteCreado.id)
     if (preferencias && preferencias.length > 0) {
-        for (const categoriaId of preferencias) {
-            const categoria = await Categoria.findByPk(categoriaId);
+
+        for (let index = 0; index < preferencias.length; index++) {
+            const categoriaId = preferencias[index];
+            console.log(categoriaId);
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId.toString());
             if (categoria) {
-                await clienteCarro.addCategoria(categoria);
+                await clienteCreado.addCategoriaRestaurante(categoria);
             }
         }
     }
@@ -63,11 +65,12 @@ async function registro(cliente) {
 Funcion para iniciar sesion
 */
 async function sesion(credencial) {
+    console.log(credencial);
     let cliente = await Cliente.findOne({
         where: {
             correo: credencial.correo,
         },
-        include: Categoria
+        include: CategoriaRestaurante
     })
     //Si no encuentra el email en la base de datos retorna false y si lo encuentra compara las contraseñas
     if (!cliente) {

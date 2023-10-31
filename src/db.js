@@ -59,8 +59,8 @@ CategoriaRestaurante.belongsToMany(Restaurante, { through:"Categorias"});
 /*
 Crear relacion de muchos a muchos Cliente y Categoria, con una tabla intermedia llamada preferencias
 */
-//Cliente.belongsToMany(Categoria, { through:"preferencias"});
-//Categoria.belongsToMany(Cliente, { through:"preferencias"});
+Cliente.belongsToMany(CategoriaRestaurante, { through:"preferencias"});
+CategoriaRestaurante.belongsToMany(Cliente, { through:"preferencias"});
 /*
 Crear la relacion entre Restaurante y Marca, la marca puede tener varios restaurantes pero los restaurates solo una marca
 */

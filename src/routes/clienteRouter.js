@@ -13,7 +13,7 @@ const clienterouter = express.Router();
 
 clienterouter.post('/registro', nuevoRegistro);
 clienterouter.get('/todos', obtenerClientes);
-clienterouter.get('/sesion', inicioSesion);
+clienterouter.post('/sesion', inicioSesion);
 clienterouter.patch('/desactivar', desactivarCuentaCliente);
 clienterouter.get('/activos', todosActivosClientes);
 clienterouter.get('/inactivos', todosInactivosClientes);
