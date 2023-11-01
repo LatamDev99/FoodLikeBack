@@ -6,7 +6,14 @@ const {
     verificarContrasenaHash,
     verificarDuplicado,
     verificarContrasenaValida
-} = require("../actions/clienteActions.js")
+} = require("../actions/clienteActions.js");
+
+const {
+    sendVerificationEmail,
+    sendWelcomeEmail
+} = require("../actions/nodemailerAction.js")
+const crypto = require("crypto");
+
 
 /*
 Funcion para registrar nuevo cliente
@@ -23,15 +30,19 @@ async function registro(cliente) {
         return "Contraseña inválida"
     }
 
+    let token = crypto.randomBytes(64).toString("hex")
+
     let nuevoCliente = {
         nombre: cliente.nombre,
         contrasena: await crearContrasenaHash(cliente.contrasena),
         correo: cliente.correo,
         representante: cliente.representante,
-        telefono: cliente.telefono
+        telefono: cliente.telefono,
+        emailToken: token
     }
 
-    await Cliente.create(nuevoCliente)
+    const clienteDb = await Cliente.create(nuevoCliente);
+    sendVerificationEmail(clienteDb)
 
     if (nuevoCliente.nombre.length == 0) {
         return "Ups, hubo un error"
@@ -132,6 +143,23 @@ async function cambiarContrasena(cliente) {
     return clienteActualizado
 
 }
+
+async function checkToken(token) {
+    if(!token) return 400;
+
+    const user = await Cliente.findOne({token});
+
+    if(!user) return 404;
+
+    user.emailToken = null;
+    user.activo = true;
+
+    sendWelcomeEmail(user)
+
+    await user.save();
+    return 202
+
+}
 module.exports = {
     registro,
     todosClientes,
@@ -139,5 +167,6 @@ module.exports = {
     desactivarCliente,
     activosClientes,
     inactivosClientes,
-    cambiarContrasena
+    cambiarContrasena,
+    checkToken
 };

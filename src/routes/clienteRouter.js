@@ -6,11 +6,13 @@ const {
     desactivarCuentaCliente,
     todosActivosClientes,
     todosInactivosClientes,
-    actualizarContrasena
+    actualizarContrasena,
+    verificarCorreo
 } = require("../handlers/clienteHandler.js")
 
 const clienterouter = express.Router();
 
+clienterouter.get('/verificarCorreo', verificarCorreo);
 clienterouter.post('/registro', nuevoRegistro);
 clienterouter.get('/todos', obtenerClientes);
 clienterouter.get('/sesion', inicioSesion);

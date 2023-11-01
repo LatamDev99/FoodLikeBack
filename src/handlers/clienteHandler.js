@@ -5,7 +5,8 @@ const {
     desactivarCliente,
     activosClientes,
     inactivosClientes,
-    cambiarContrasena
+    cambiarContrasena,
+    checkToken
 } = require("../controllers/clienteController");
 /*
 Funcion handler para nuevo registro de cliente
@@ -93,7 +94,17 @@ const actualizarContrasena = async (req, res) => {
         console.log(error);
         res.status(400).json(error)
     }
-}
+};
+
+const verificarCorreo = async (req, res) => {
+    try {
+        let status = await checkToken(req.query.token);
+        res.status(200).json(status)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+};
+
 module.exports = {
     nuevoRegistro,
     obtenerClientes,
@@ -101,5 +112,6 @@ module.exports = {
     desactivarCuentaCliente,
     todosActivosClientes,
     todosInactivosClientes,
-    actualizarContrasena
+    actualizarContrasena,
+    verificarCorreo
 }

@@ -39,8 +39,12 @@ module.exports = (sequelize) => {
         },
         activo: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true,
+            defaultValue: false,
             allowNull: false
+        },
+        emailToken: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {
         timestamps: false

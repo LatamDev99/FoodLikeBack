@@ -23,15 +23,17 @@ const crearPlatillo = async ( platillo ) => {
 }
 
 const actualizarPlatillo = async(platillo) => {
+    const { nombre, descripcion } = platillo
     try {
         const id = platillo.id
         const platilloDb = await Platillo.findByPk(id);
         if(!platilloDb){
             throw new Error(`no se encontro platillo con id ${id}`)
         }
+        // function(platillo)
         const updates = {}
-        if(platillo.nombre) updates.platillo = platillo.nombre;
-        if(platillo.descripcion) updates.descripcion = platillo.descripcion;
+        if(nombre) updates.platillo = nombre;
+        if(descripcion) updates.descripcion = descripcion;
         if(platillo.precio) updates.precio = platillo.precio;
         if(platillo.foto) updates.foto = platillo.foto;
         if(platillo.promo) updates.promo = platillo.promo;
@@ -46,9 +48,7 @@ const actualizarPlatillo = async(platillo) => {
 
 const getPlatillos = async (id_restaurante) => {
     try {
-        console.log(1);
         const restaurantCheck = await Restaurante.findByPk(id_restaurante)
-        console.log(2);
         if (!restaurantCheck) return null
         const platillos = await Platillo.findAll({where: {
             restauranteId: id_restaurante
