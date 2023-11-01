@@ -6,7 +6,10 @@ const restauranteRouter = require("./restauranteRouter");
 const platilloRouter = require("./platilloRouter")
 const reviewRouter = require("./reviewRouter")
 const marcaRouter = require("./marcaRouter")
+<<<<<<< HEAD
 const carritoRouter = require("./carritoRouter")
+=======
+>>>>>>> ef1c053595f7fccd1dc57919a05370e686a55d28
 const carritoDeComprasRouter = require("./carritoDeComprasRouter")
 const categoriasPlatilloRouter = require("./categoriasPlatilloRouter")
 const catergoriasRestauranteRouter = require("./categoriaRestauranteRouter")

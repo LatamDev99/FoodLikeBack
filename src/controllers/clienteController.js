@@ -50,8 +50,6 @@ async function registro(cliente) {
 
     const clienteDb = await Cliente.create(nuevoCliente);
     sendVerificationEmail(clienteDb)
-        apellido: cliente.apellido,
-        telefono: cliente.telefono
     }
 
     const clienteCreado = await Cliente.create(nuevoCliente)

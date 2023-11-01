@@ -12,6 +12,10 @@ const sequelize = new Sequelize(DB_URL,
          timestamps: false,  // Puedes establecer esto como true si deseas usar timestamps
          underscored: true,  // Esta opción convierte los nombres de las columnas en snake_case
        },
+      define: {
+         timestamps: false,  // Puedes establecer esto como true si deseas usar timestamps
+         underscored: true,  // Esta opción convierte los nombres de las columnas en snake_case
+       },
    }
 );
 const basename = path.basename(__filename);
@@ -41,15 +45,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-<<<<<<< HEAD
-const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, carritoPlatillo } = sequelize.models;
-=======
-const { Cliente, Restaurante, Platillo, Review, Marca, Carrito, CategoriaPlatillo, CategoriaRestaurante } = sequelize.models;
-/*Relacion de platillos con categorias de uno a muchos y de muchos a uno */
-
-CategoriaPlatillo.hasMany(Platillo, { foreignKey:"categoriaId"});   
-Platillo.belongsTo(CategoriaPlatillo, { foreignKey:"categoriaId"});
->>>>>>> ef1c053595f7fccd1dc57919a05370e686a55d28
+const { Cliente, Restaurante, Platillo, Review, Marca } = sequelize.models;
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */
@@ -79,19 +75,7 @@ Review.belongsTo(Cliente, { foreignKey:"clienteId"});       /*Listo*/
 Crear la relacion entre Review y Restaurante, la review solo puede pertenecer a un restaurante pero el restaurante puede tener varios reviews
 */
 Restaurante.hasMany(Review, { foreignKey:"restauranteId"});
-Review.belongsTo(Restaurante, { foreignKey:"restauranteId"});  /*Listo*/
-   
-/*Relación del Cliente con el carrito*/
-
-Cliente.hasMany(Carrito, { foreignKey:"clienteId"});
-Carrito.belongsTo(Cliente, { foreignKey:"clienteId"});         /*Listo*/
-
-/*Relación de platillo a carrito de muchos a muchos */
-
-Platillo.belongsToMany(Carrito, { through:"carrito"});
-Carrito.belongsToMany(Platillo, { through:"carrito"});         /*Listo*/
-
-
+Review.belongsTo(Restaurante, { foreignKey:"restauranteId"});
 
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
