@@ -103,10 +103,10 @@ const actualizarContrasena = async (req, res) => {
 Funcion handler para asociar un restaurante a una marca
 */
 const asociarRestauranteNuevo = async (req, res) => {
-    const {marcaId, restauranteiD} = req.body
+    const {marcaId, restauranteId} = req.body
 
     try {
-        let marca = await asociarRestaurante(marcaId, restauranteiD)
+        let marca = await asociarRestaurante(marcaId, restauranteId)
         res.status(200).json(marca)
     } catch (error) {
         console.log(error);

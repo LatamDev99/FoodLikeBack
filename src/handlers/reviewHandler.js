@@ -1,4 +1,4 @@
-const { registroReview, todosReviews, reviewDesAct, activosReviews,inactivosReviews } = require("../controllers/reviewController");
+const { registroReview, todosReviews, reviewDesAct, activosReviews,inactivosReviews,  } = require("../controllers/reviewController");
 
 /* Registrar Review */
 
@@ -8,6 +8,7 @@ const nuevoReview = async(req, res) => {
 
         res.status(200).json(review)
     } catch (error) {
+        console.log(error)
         res.status(400).json(error)
     }
 }
@@ -61,12 +62,14 @@ const todosInactivosReview = async(req, res) => {
     }
 }
 
+
+
 module.exports = {
     nuevoReview, 
     obtenerReviews,
     desactivarReviewRestaurante,
     todosActivosReview,
-    todosInactivosReview
+    todosInactivosReview,
 }
 
 

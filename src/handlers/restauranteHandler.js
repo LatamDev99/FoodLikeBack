@@ -1,4 +1,4 @@
-const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes } = require("../controllers/restauranteController");
+const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes} = require("../controllers/restauranteController");
 
 /* Nuevo registro de restaurante */
 
@@ -7,6 +7,7 @@ const nuevoRegistro = async(req, res) => {
        let nuevoRestaurante = await registro(req.body)
        res.status(200).json(nuevoRestaurante)
     } catch (error) {
+        console.log(error);
         res.status(400).json(error)
     }
 }
@@ -83,6 +84,8 @@ const todosInactivosRestaurantes = async(req, res) => {
     }
 }
 
+
+
 module.exports = {
     nuevoRegistro, 
     obtenerRestaurantes, 
@@ -90,5 +93,6 @@ module.exports = {
     desActCuentaRestaurante, 
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
-    todosInactivosRestaurantes 
+    todosInactivosRestaurantes,
+
 }

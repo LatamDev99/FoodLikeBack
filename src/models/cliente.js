@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         telefono: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true
         },
         correo: {

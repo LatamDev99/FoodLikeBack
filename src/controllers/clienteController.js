@@ -1,5 +1,6 @@
 const {
-    Cliente
+    Cliente,
+    CategoriaRestaurante
 } = require("../db.js")
 const {
     crearContrasenaHash,
@@ -15,6 +16,11 @@ const {
 const crypto = require("crypto");
 
 
+
+const{
+    enlazaUsuarioACarrito
+}
+= require("./carrosController.js")
 /*
 Funcion para registrar nuevo cliente
 */
@@ -31,6 +37,7 @@ async function registro(cliente) {
     }
 
     let token = crypto.randomBytes(64).toString("hex")
+    const preferencias = cliente.preferencias;
 
     let nuevoCliente = {
         nombre: cliente.nombre,
@@ -43,13 +50,32 @@ async function registro(cliente) {
 
     const clienteDb = await Cliente.create(nuevoCliente);
     sendVerificationEmail(clienteDb)
+        apellido: cliente.apellido,
+        telefono: cliente.telefono
+    }
+
+    const clienteCreado = await Cliente.create(nuevoCliente)
 
     if (nuevoCliente.nombre.length == 0) {
         return "Ups, hubo un error"
     }
 
+    await enlazaUsuarioACarrito(clienteCreado.id)
+    if (preferencias && preferencias.length > 0) {
+
+        for (let index = 0; index < preferencias.length; index++) {
+            const categoriaId = preferencias[index];
+            console.log(categoriaId);
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId.toString());
+            if (categoria) {
+                await clienteCreado.addCategoriaRestaurante(categoria);
+            }
+        }
+    }
+
+
     return "Usuario creado con exito"
-}
+
 /*
 Funcion para iniciar sesion
 */
@@ -57,7 +83,8 @@ async function sesion(credencial) {
     let cliente = await Cliente.findOne({
         where: {
             correo: credencial.correo,
-        }
+        },
+        include: CategoriaRestaurante
     })
     //Si no encuentra el email en la base de datos retorna false y si lo encuentra compara las contraseñas
     if (!cliente) {

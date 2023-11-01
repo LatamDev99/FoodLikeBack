@@ -1,10 +1,11 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
-const { Restaurante } = require("../db.js")
+const { Restaurante, CategoriaRestaurante } = require("../db.js")
+
 
 /*Función para registrar nuevo restaurante */
 
 const registro = async( restaurante ) => {
-    const {nombre, contrasena, correo, representante, telefono, direccion, horario, logo, fachada, cuentaBancaria, alcance, activo} = restaurante
+    const {nombre, contrasena, correo, representante, telefono, direccion, horario, logo, fachada, cuentaBancaria, alcance, activo, categorias} = restaurante
 
     let restCorreo = verificarCorreo(correo)
     var restTelefono = verificarTelefono(telefono)
@@ -18,7 +19,14 @@ const registro = async( restaurante ) => {
         
         if (!restCuentaBancaria){
             return "Número de cuenta inválido"
-        } 
+        }
+        
+        for (const categoriaId of categorias){
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId)
+            if(!categoria){
+                return "No existe la categoría en el sistema"
+            }
+           }
         
 
         var rest = await Restaurante.findOne({
@@ -44,14 +52,25 @@ const registro = async( restaurante ) => {
                                     alcance,
                                     activo
                                     }  
-            await Restaurante.create(objetoRestaurante)           
-                                    
+
+        const rest =   await Restaurante.create(objetoRestaurante)           
+        
+        if(categorias.length > 0){
+           for (const categoriaId of categorias){
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId)
+            if(categoria){
+                await rest.addCategoriaRestaurante(categoria)
+            }
+           }
+        }        
+
         }else{    
             return "Ya existe un restaurante registrado con ese correo"
         }
     }else{
         return "Correo inválido"
     } 
+        
     return "Registrado con éxito"
 }
 
@@ -76,7 +95,9 @@ const sesion = async( credencial ) => {
 /*Función para obtener todos los restaurantes */
 
 const todosRestaurantes = async() => {
-    let restaurante = await Restaurante.findAll()
+    let restaurante = await Restaurante.findAll({
+        include: CategoriaRestaurante
+    })
     return restaurante
 }
 

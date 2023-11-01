@@ -21,18 +21,6 @@ module.exports = (sequelize) => {
         defaultValue: true,
         allowNull: true
     },
-
-
-    usuario: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-
-    restaurante: {
-        type: DataTypes.STRING,
-        allowNull: true
-    }
-
   }, {
     timestamps: false
   });

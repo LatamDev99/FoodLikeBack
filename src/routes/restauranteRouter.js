@@ -6,18 +6,23 @@ const { nuevoRegistro,
     desActCuentaRestaurante, 
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
-    todosInactivosRestaurantes 
+    todosInactivosRestaurantes,
+
 } = require("../handlers/restauranteHandler.js")
 
 const restauranteRouter = express.Router();
 
 restauranteRouter.post('/registro', nuevoRegistro);
+
 restauranteRouter.get('/sesion', inicioSesion);
 restauranteRouter.get('/todos', obtenerRestaurantes);
 restauranteRouter.get('/activos', todosActivosRestaurantes);
 restauranteRouter.get('/inactivos', todosInactivosRestaurantes);
+
 restauranteRouter.patch('/desact', desActCuentaRestaurante);
 restauranteRouter.patch('/contrasena', actualizarContrasenaRestaurante);
+
+
 
 
 module.exports = restauranteRouter;

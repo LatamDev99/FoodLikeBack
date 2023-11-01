@@ -3,15 +3,23 @@ const { DataTypes, ARRAY } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('Carrito', {
+  sequelize.define('CategoriaRestaurante', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    status: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
+    nombre: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    value: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    label: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
   }, {
     timestamps: false
