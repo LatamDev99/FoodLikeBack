@@ -5,11 +5,11 @@ const { Restaurante, CategoriaRestaurante } = require("../db.js")
 /*Función para registrar nuevo restaurante */
 
 const registro = async( restaurante ) => {
-    const {nombre, contrasena, correo, representante, telefono, direccion, horario, logo, fachada, cuentaBancaria, alcance, activo, categorias} = restaurante
+    const {nombre, contrasena, correo, representante, telefono, direccion, activo, categorias} = restaurante
 
     let restCorreo = verificarCorreo(correo)
     var restTelefono = verificarTelefono(telefono)
-    let restCuentaBancaria = verificarCuentaBancaria(cuentaBancaria)
+    // let restCuentaBancaria = verificarCuentaBancaria(cuentaBancaria)
  
     if(restCorreo){
 
@@ -17,9 +17,9 @@ const registro = async( restaurante ) => {
             return "Telefono inválido"
         } 
         
-        if (!restCuentaBancaria){
-            return "Número de cuenta inválido"
-        }
+        // if (!restCuentaBancaria){
+        //     return "Número de cuenta inválido"
+        // }
         
         for (const categoriaId of categorias){
             const categoria = await CategoriaRestaurante.findByPk(categoriaId)
@@ -45,11 +45,6 @@ const registro = async( restaurante ) => {
                                     representante,
                                     telefono,
                                     direccion,
-                                    horario,
-                                    logo,
-                                    fachada,
-                                    cuentaBancaria,
-                                    alcance,
                                     activo
                                     }  
 
@@ -69,7 +64,7 @@ const registro = async( restaurante ) => {
         }
     }else{
         return "Correo inválido"
-    }   
+    } 
         
     return "Registrado con éxito"
 }

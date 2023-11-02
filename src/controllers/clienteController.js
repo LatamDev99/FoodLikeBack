@@ -26,58 +26,48 @@ Funcion para registrar nuevo cliente
 */
 async function registro(cliente) {
 
-    const { correo } = cliente
-
-    const clienteDb = await Cliente.create(nuevoCliente);
-    sendVerificationEmail(clienteDb)
-    }
-
-    let duplicado =  verificarDuplicado(correo)
+    let duplicado = await verificarDuplicado(cliente.correo)
     if (duplicado) {
         return "Ya existe un usuario con ese correo"
-    }   
-
-    const clienteCreado =  Cliente.create(nuevoCliente)
-
-    if (nuevoCliente.nombre.length == 0) {
-        return "Ups, hubo un error"
     }
-
-
 
     let contrasenaValida = verificarContrasenaValida(cliente.contrasena)
     if (!contrasenaValida) {
         return "Contraseña inválida"
     }
 
-    let token = crypto.randomBytes(64).toString("hex")
     const preferencias = cliente.preferencias;
 
     let nuevoCliente = {
         nombre: cliente.nombre,
-        contrasena: crearContrasenaHash(cliente.contrasena),
+        contrasena: await crearContrasenaHash(cliente.contrasena),
         correo: cliente.correo,
-        representante: cliente.representante,
-        telefono: cliente.telefono,
-        emailToken: token
+        apellido: cliente.apellido,
+        telefono: cliente.telefono
     }
 
-     enlazaUsuarioACarrito(clienteCreado.id)
+    const clienteCreado = await Cliente.create(nuevoCliente)
+
+    if (nuevoCliente.nombre.length == 0) {
+        return "Ups, hubo un error"
+    }
+
+    await enlazaUsuarioACarrito(clienteCreado.id)
     if (preferencias && preferencias.length > 0) {
 
         for (let index = 0; index < preferencias.length; index++) {
             const categoriaId = preferencias[index];
             console.log(categoriaId);
-            const categoria =  CategoriaRestaurante.findByPk(categoriaId.toString());
+            const categoria = await CategoriaRestaurante.findByPk(categoriaId.toString());
             if (categoria) {
-                 clienteCreado.addCategoriaRestaurante(categoria);
+                await clienteCreado.addCategoriaRestaurante(categoria);
             }
         }
     }
 
 
     return "Usuario creado con exito"
-
+}
 /*
 Funcion para iniciar sesion
 */
