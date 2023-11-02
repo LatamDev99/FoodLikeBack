@@ -69,7 +69,7 @@ const registro = async( restaurante ) => {
         }
     }else{
         return "Correo inválido"
-    } 
+    }   
         
     return "Registrado con éxito"
 }

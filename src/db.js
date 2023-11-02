@@ -45,7 +45,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante } = sequelize.models;
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */

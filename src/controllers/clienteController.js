@@ -26,10 +26,24 @@ Funcion para registrar nuevo cliente
 */
 async function registro(cliente) {
 
-    let duplicado = await verificarDuplicado(cliente.correo)
+    const { correo } = cliente
+
+    const clienteDb = await Cliente.create(nuevoCliente);
+    sendVerificationEmail(clienteDb)
+    }
+
+    let duplicado =  verificarDuplicado(correo)
     if (duplicado) {
         return "Ya existe un usuario con ese correo"
+    }   
+
+    const clienteCreado =  Cliente.create(nuevoCliente)
+
+    if (nuevoCliente.nombre.length == 0) {
+        return "Ups, hubo un error"
     }
+
+
 
     let contrasenaValida = verificarContrasenaValida(cliente.contrasena)
     if (!contrasenaValida) {
@@ -41,32 +55,22 @@ async function registro(cliente) {
 
     let nuevoCliente = {
         nombre: cliente.nombre,
-        contrasena: await crearContrasenaHash(cliente.contrasena),
+        contrasena: crearContrasenaHash(cliente.contrasena),
         correo: cliente.correo,
         representante: cliente.representante,
         telefono: cliente.telefono,
         emailToken: token
     }
 
-    const clienteDb = await Cliente.create(nuevoCliente);
-    sendVerificationEmail(clienteDb)
-    }
-
-    const clienteCreado = await Cliente.create(nuevoCliente)
-
-    if (nuevoCliente.nombre.length == 0) {
-        return "Ups, hubo un error"
-    }
-
-    await enlazaUsuarioACarrito(clienteCreado.id)
+     enlazaUsuarioACarrito(clienteCreado.id)
     if (preferencias && preferencias.length > 0) {
 
         for (let index = 0; index < preferencias.length; index++) {
             const categoriaId = preferencias[index];
             console.log(categoriaId);
-            const categoria = await CategoriaRestaurante.findByPk(categoriaId.toString());
+            const categoria =  CategoriaRestaurante.findByPk(categoriaId.toString());
             if (categoria) {
-                await clienteCreado.addCategoriaRestaurante(categoria);
+                 clienteCreado.addCategoriaRestaurante(categoria);
             }
         }
     }
