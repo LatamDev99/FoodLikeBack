@@ -78,7 +78,8 @@ const sesion = async( credencial ) => {
     let restaurante = await Restaurante.findOne({
         where: {
             correo: correo
-        }
+        },
+        include: CategoriaRestaurante
     })
 
     if (!restaurante) {
@@ -174,6 +175,33 @@ async function inactivosRestaurantes() {
     return restaurante
 }
 
+async function cambiarDatos( restaurante ){
+
+    const { horario , logo , fachada , cuentaBancaria, alcance  } = restaurante
+    let restauranteDatos = await Restaurante.findOne({
+        where: {
+            correo: restaurante.correo
+        }
+    })
+    restauranteDatos.horario = horario
+    restauranteDatos.logo = logo
+    restauranteDatos.fachada = fachada
+    restauranteDatos.cuentaBancaria = cuentaBancaria
+    restauranteDatos.alcance = alcance
+    
+    restauranteDatos.save()
+
+        let restActualizado = await Restaurante.findOne({
+            where: {
+                correo: restaurante.correo
+            },
+            include: CategoriaRestaurante
+        })
+    
+        return [true, restActualizado]   
+}
+   
+
 module.exports={
     registro, 
     todosRestaurantes, 
@@ -181,5 +209,6 @@ module.exports={
     restauranteDesAct,
     cambiarContrasena,
     activosRestaurantes,
-    inactivosRestaurantes
+    inactivosRestaurantes,
+    cambiarDatos
 };
