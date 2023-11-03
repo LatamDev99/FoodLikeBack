@@ -19,6 +19,7 @@ const inicioSesion = async(req, res) => {
         let restaurante = await sesion(req.body)
         res.status(200).json(restaurante)
     } catch (error) {
+        console.log(error)
         res.status(400).json(error)
     }
 }

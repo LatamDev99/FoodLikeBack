@@ -66,22 +66,29 @@ const registro = async( restaurante ) => {
         return "Correo inválido"
     } 
         
-    return "Registrado con éxito"
+    return true
 }
 
 /*Función para iniciar sesión restaurante */
 
 const sesion = async( credencial ) => {
+
+    const { correo , contrasena }  = credencial 
+
     let restaurante = await Restaurante.findOne({
         where: {
-            correo: credencial.correo,
+            correo: correo
         }
     })
 
-    let verificarSesionRestaurante = await verificarContrasenaHash( credencial.contrasena , restaurante.contrasena )
+    if (!restaurante) {
+        return 'Restaurante no encontrado';
+    }
+
+    let verificarSesionRestaurante = await verificarContrasenaHash( contrasena , restaurante.contrasena)
 
     if (verificarSesionRestaurante){
-        return restaurante
+        return [true, restaurante]
     }else{
         return 'Existe un error en el correo o contraseña'
     }

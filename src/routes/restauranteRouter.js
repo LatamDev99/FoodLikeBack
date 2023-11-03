@@ -14,7 +14,7 @@ const restauranteRouter = express.Router();
 
 restauranteRouter.post('/registro', nuevoRegistro);
 
-restauranteRouter.get('/sesion', inicioSesion);
+restauranteRouter.post('/sesion', inicioSesion);
 restauranteRouter.get('/todos', obtenerRestaurantes);
 restauranteRouter.get('/activos', todosActivosRestaurantes);
 restauranteRouter.get('/inactivos', todosInactivosRestaurantes);
