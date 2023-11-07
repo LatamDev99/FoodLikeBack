@@ -1,5 +1,5 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
-const { Restaurante, CategoriaRestaurante } = require("../db.js")
+const { Restaurante, CategoriaRestaurante, Categoria } = require("../db.js")
 
 
 /*Función para registrar nuevo restaurante */
@@ -26,7 +26,7 @@ const registro = async( restaurante ) => {
             if(!categoria){
                 return "No existe la categoría en el sistema"
             }
-           }
+        }
         
 
         var rest = await Restaurante.findOne({
@@ -53,7 +53,7 @@ const registro = async( restaurante ) => {
         if(categorias.length > 0){
            for (const categoriaId of categorias){
             const categoria = await CategoriaRestaurante.findByPk(categoriaId)
-            if(categoria){
+            if(categoria){  
                 await rest.addCategoriaRestaurante(categoria)
             }
            }
@@ -177,18 +177,40 @@ async function inactivosRestaurantes() {
 
 async function cambiarDatos( restaurante ){
 
-    const { horario , logo , fachada , cuentaBancaria, alcance  } = restaurante
+    const { horario , logo , fachada , cuentaBancaria, alcance, CategoriaRestaurantes  } = restaurante
+
     let restauranteDatos = await Restaurante.findOne({
         where: {
             correo: restaurante.correo
-        }
+        },
+        include: CategoriaRestaurante
     })
     restauranteDatos.horario = horario
     restauranteDatos.logo = logo
     restauranteDatos.fachada = fachada
     restauranteDatos.cuentaBancaria = cuentaBancaria
     restauranteDatos.alcance = alcance
-    
+
+    const idsDeCategoriasDeRestaurantes = restauranteDatos.CategoriaRestaurantes.map((categoriaRestaurante) => categoriaRestaurante.dataValues.id); 
+    const idsDeLasCategoriasEntrantes = CategoriaRestaurantes.map(cat => cat.id)
+
+    const elementosNoEncontradosEnEntrantes = idsDeCategoriasDeRestaurantes.filter(id => !idsDeLasCategoriasEntrantes.includes(id));
+    const elementosNoEncontradosEnCategoriasDeRestaurantes = idsDeLasCategoriasEntrantes.filter(id => !idsDeCategoriasDeRestaurantes.includes(id));
+
+    for (const id of elementosNoEncontradosEnEntrantes){
+        const cat = await CategoriaRestaurante.findByPk(id)
+        if(cat){  
+            await restauranteDatos.removeCategoriaRestaurante(cat)
+        }
+       }
+
+    for (const id of elementosNoEncontradosEnCategoriasDeRestaurantes){
+        const cat = await CategoriaRestaurante.findByPk(id)
+        if(cat){  
+            await restauranteDatos.addCategoriaRestaurante(cat)
+        }
+       }
+
     restauranteDatos.save()
 
         let restActualizado = await Restaurante.findOne({
@@ -196,8 +218,7 @@ async function cambiarDatos( restaurante ){
                 correo: restaurante.correo
             },
             include: CategoriaRestaurante
-        })
-    
+        })        
         return [true, restActualizado]   
 }
    
