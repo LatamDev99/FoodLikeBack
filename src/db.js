@@ -45,7 +45,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante, CategoriaPlatillo } = sequelize.models;
 /*
 Crear la relacion entre restaurante y platillo, con una tabla intermedia que se llame menú, el restaurante puede tener varios platillos y el platillo solo un restaurante
 */
@@ -57,6 +57,13 @@ Crear las relaciones de muchos a muchos entre Restaurantes y Categorias
 Restaurante.belongsToMany(CategoriaRestaurante, { through:"Categorias"});
 CategoriaRestaurante.belongsToMany(Restaurante, { through:"Categorias"});
 /*
+
+Crear las relaciones de muchos a muchos entre Restaurantes y Platillos
+*/
+Restaurante.belongsToMany(CategoriaPlatillo, { through:"CategoriasP"});
+CategoriaPlatillo.belongsToMany(Restaurante, { through:"CategoriasP"});
+/*
+
 Crear relacion de muchos a muchos Cliente y Categoria, con una tabla intermedia llamada preferencias
 */
 Cliente.belongsToMany(CategoriaRestaurante, { through:"preferencias"});

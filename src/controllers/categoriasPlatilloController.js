@@ -1,25 +1,39 @@
 const {
-    CategoriaPlatillo
+    CategoriaPlatillo,
+    Restaurante
 } = require("../db.js")
 
 const agregarCategorias = async( categoria ) =>{
 
+    const { nombre, idRestaurante } = categoria
+
     const categoriaAgregada = await CategoriaPlatillo.findOne(
         {where : {
-            nombre: categoria.nombre
+            nombre: nombre
         }}
     )
 
+    const categoriasAgregadas= {
+        nombre: nombre,
+        value: nombre,
+        label: nombre
+    }
+
+
     if (categoriaAgregada== null){
-        return await CategoriaPlatillo.create(categoria)
+        const nuevaCategoria = await CategoriaPlatillo.create(categoriasAgregadas)
+        await nuevaCategoria.addRestaurante(idRestaurante)
+
+        return nuevaCategoria
     }else{
         return categoriaAgregada
     }
 }
 
-
 const traerCategorias = async() =>{
-    let categoria = await CategoriaPlatillo.findAll()
+    let categoria = await CategoriaPlatillo.findAll({
+        include:  Restaurante}
+        )
     return categoria
 }
 

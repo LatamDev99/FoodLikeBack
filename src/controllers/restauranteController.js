@@ -1,5 +1,5 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
-const { Restaurante, CategoriaRestaurante, Categoria } = require("../db.js")
+const { Restaurante, CategoriaRestaurante, Categoria, CategoriaPlatillo } = require("../db.js")
 
 
 /*Función para registrar nuevo restaurante */
@@ -79,7 +79,7 @@ const sesion = async( credencial ) => {
         where: {
             correo: correo
         },
-        include: CategoriaRestaurante
+        include: [CategoriaRestaurante, CategoriaPlatillo]
     })
 
     if (!restaurante) {
@@ -99,7 +99,11 @@ const sesion = async( credencial ) => {
 
 const todosRestaurantes = async() => {
     let restaurante = await Restaurante.findAll({
-        include: CategoriaRestaurante
+        include:[
+                CategoriaRestaurante,
+                CategoriaPlatillo
+        ]
+        
     })
     return restaurante
 }
@@ -177,7 +181,7 @@ async function inactivosRestaurantes() {
 
 async function cambiarDatos( restaurante ){
 
-    const { horario , logo , fachada , cuentaBancaria, alcance, CategoriaRestaurantes  } = restaurante
+    const { horario , logo , fachada , cuentaBancaria, alcance, CategoriaRestaurantes } = restaurante
 
     let restauranteDatos = await Restaurante.findOne({
         where: {
