@@ -36,7 +36,6 @@ const registro = async( restaurante ) => {
         })          
     
         if (rest===null){            
-    
             let nuevaContrasena = await crearContrasenaHash( contrasena )
     
             let objetoRestaurante = {nombre, 
@@ -49,7 +48,6 @@ const registro = async( restaurante ) => {
                                     }  
 
         const rest =   await Restaurante.create(objetoRestaurante)           
-        
         if(categorias.length > 0){
            for (const categoriaId of categorias){
             const categoria = await CategoriaRestaurante.findByPk(categoriaId)
@@ -65,7 +63,7 @@ const registro = async( restaurante ) => {
     }else{
         return "Correo inválido"
     } 
-        
+      
     return true
 }
 

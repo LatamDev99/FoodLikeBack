@@ -1,20 +1,32 @@
 [
     {
-        "nombre": "Los Compadres Suc Polanco",
-        "correo": "sckarlet019@gmail.com",
+        "nombre": "R Mexico Suc Polanco",
+        "correo": "polanco@gmail.com",
         "contrasena": "Sckarlet23",
-        "representante": "Eric",
+        "representante": "Polanco",
         "telefono": "987456321",
         "cuentaBancaria": "12345612789123",
+        "direccion:": "CDMX",
         "categorias": []
     },
     {
-        "nombre": "Los Compadres Suc Polanco",
-        "correo": "sckarlet019@gmail.com",
+        "nombre": "R Mexico Suc Reforma",
+        "correo": "reforma@gmail.com",
         "contrasena": "Sckarlet23",
-        "representante": "Eric",
-        "telefono": "987456321",
+        "representante": "Reforma",
+        "telefono": "987456322",
         "cuentaBancaria": "12345612789123",
+        "direccion:": "CDMX",
+        "categorias": []
+    },
+    {
+        "nombre": "R Mexico Suc Insurgentes",
+        "correo": "insurgentes@gmail.com",
+        "contrasena": "Sckarlet23",
+        "representante": "Insurgentes",
+        "telefono": "987456323",
+        "cuentaBancaria": "12345612789123",
+        "direccion:": "CDMX",
         "categorias": []
     }
 ]
