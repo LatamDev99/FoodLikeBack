@@ -15,7 +15,7 @@ const enlazaUsuarioACarrito = async( idCliente ) => {
     }
 
     const nuevoCarrito = await Carrito.create()
-    await nuevoCarrito.setCliente(cliente);
+    await nuevoCarrito.addCliente(cliente);
 
     return "Carrito registrado con éxito"
 }
