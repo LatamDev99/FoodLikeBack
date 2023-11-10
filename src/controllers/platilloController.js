@@ -26,51 +26,39 @@ const crearPlatillo = async ( platillo ) => {
 
 const actualizarPlatillo = async( platillo ) => {
 
-    const { platilloId, nombre, descripcion, precio , foto , promo , stock  , activo  } = platillo
+    const { id, nombre, descripcion, precio , foto , promo , stock  , activo  } = platillo
 
-        const platilloDb = await Platillo.findByPk(platilloId);
+        const platilloDb = await Platillo.findByPk(id);
         if(!platilloDb){
-            throw new Error(`no se encontro platillo con id ${platilloId}`)
+            throw new Error(`no se encontro platillo con id ${id}`)
         }
-        /*hacer validaciones en los actions*/
+            
         const updates = {
             nombre,
             descripcion,
             foto,
             promo,
             stock,
-            activo
+            activo,
+            precio
         }
         
         await platilloDb.update(updates);
-        return platilloDb
+        return true
   
 }
 
 const getPlatillos = async ( rest ) => {
 
-    const { id_restaurante } = rest
-    try {
-        
-         let restaurante = await Restaurante.findOne({
-            where: {
-                id: id_restaurante
-            },
-            include: [CategoriaRestaurante, CategoriaPlatillo]
-        })
-
-        const {CategoriaPlatillos} = restaurante
-
-        const soloIds = CategoriaPlatillos.map(categoria => categoria.id);
-
+    try {            
         const platillosPorCategoria = []
 
-        for (let i = 0; i < soloIds.length; i++) {
-        const categoriaId = soloIds[i];
+        for (let i = 0; i < rest.length; i++) {
+        const categoriaId = rest[i];
         const platillos = await Platillo.findAll({
             where: {
             CategoriaPlatilloId: categoriaId,
-            },
+            },include: CategoriaPlatillo
         });
         platillosPorCategoria.push(platillos);
         }
