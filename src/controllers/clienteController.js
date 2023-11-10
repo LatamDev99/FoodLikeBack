@@ -57,7 +57,6 @@ async function registro(cliente) {
 
         for (let index = 0; index < preferencias.length; index++) {
             const categoriaId = preferencias[index];
-            console.log(categoriaId);
             const categoria = await CategoriaRestaurante.findByPk(categoriaId.toString());
             if (categoria) {
                 await clienteCreado.addCategoriaRestaurante(categoria);

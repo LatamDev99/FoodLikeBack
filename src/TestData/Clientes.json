@@ -1,0 +1,20 @@
+[
+    {
+        "nombre": "eric",
+        "correo": "eric@gmail.com",
+        "contrasena": "Sckarlet23",
+        "preferencias": []
+    },
+    {
+        "nombre": "ClienteTest",
+        "correo": "clientetest@gmail.com",
+        "contrasena": "Sckarlet23",
+        "preferencias": []
+    },
+    {
+        "nombre": "MexicanoTest",
+        "correo": "mexicanotest@gmail.com",
+        "contrasena": "Sckarlet23",
+        "preferencias": []
+    }
+]

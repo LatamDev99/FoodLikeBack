@@ -1,9 +1,9 @@
 const categorias = require("./CategoriasR.json")
 const {agregarCategorias} = require("../controllers/categoriaRestauranteController")
 
-const crearCategoriasBase = () => {
+const crearCategoriasBase = async() => {
     for (let i = 0; i < categorias.length; i++) {
-        agregarCategorias(categorias[i])
+       await agregarCategorias(categorias[i])
     }
     return "ok"
 }
