@@ -26,8 +26,7 @@ const patchPlatillo = async (req, res) => {
 
 const getPlatillosRestaurante = async (req, res) => {
     try {
-        const id = req.params.id
-        const response = await getPlatillos(id)
+        const response = await getPlatillos(req.body)
         if(response === null){
             res.status(400).json(`no se encontro restaurante con el id`)
         }else {

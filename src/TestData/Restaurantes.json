@@ -28,5 +28,15 @@
         "cuentaBancaria": "12345612789123",
         "direccion:": "CDMX",
         "categorias": []
+    },
+    {
+        "nombre": "R Mexico Suc Insurgentes",
+        "correo": "123@gmail.com",
+        "contrasena": "123",
+        "representante": "Insurgentes",
+        "telefono": "987456323",
+        "cuentaBancaria": "12345612789123",
+        "direccion:": "CDMX",
+        "categorias": []
     }
 ]

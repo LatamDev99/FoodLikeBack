@@ -10,7 +10,7 @@ const platilloRouter = express.Router();
 
 
 platilloRouter.get("/todos", todosLosPlatillos)
-platilloRouter.get("/:id", getPlatillosRestaurante)
+platilloRouter.post("/restaurante", getPlatillosRestaurante)
 
 platilloRouter.post("/", postPlatillo)
 platilloRouter.patch("/", patchPlatillo)

@@ -1,4 +1,5 @@
-const { Platillo, Restaurante, CategoriaPlatillo } = require("../db")
+const { Platillo, Restaurante, CategoriaPlatillo, CategoriaRestaurante } = require("../db")
+const categoriaplatillo = require("../models/categoriaplatillo")
 
 const crearPlatillo = async ( platillo ) => {
    
@@ -23,7 +24,7 @@ const crearPlatillo = async ( platillo ) => {
         return true
 }
 
-const actualizarPlatillo = async(platillo) => {
+const actualizarPlatillo = async( platillo ) => {
 
     const { platilloId, nombre, descripcion, precio , foto , promo , stock  , activo  } = platillo
 
@@ -46,18 +47,36 @@ const actualizarPlatillo = async(platillo) => {
   
 }
 
-const getPlatillos = async (id_restaurante) => {
+const getPlatillos = async ( rest ) => {
+
+    const { id_restaurante } = rest
     try {
         
-        const restaurantCheck = await Restaurante.findByPk(id_restaurante)
+         let restaurante = await Restaurante.findOne({
+            where: {
+                id: id_restaurante
+            },
+            include: [CategoriaRestaurante, CategoriaPlatillo]
+        })
 
-        if (!restaurantCheck) return null
-        const platillos = await Platillo.findAll({where: {
-            restauranteId: id_restaurante
-        }})
-            
+        const {CategoriaPlatillos} = restaurante
 
-        return platillos
+        const soloIds = CategoriaPlatillos.map(categoria => categoria.id);
+
+        const platillosPorCategoria = []
+
+        for (let i = 0; i < soloIds.length; i++) {
+        const categoriaId = soloIds[i];
+        const platillos = await Platillo.findAll({
+            where: {
+            CategoriaPlatilloId: categoriaId,
+            },
+        });
+        platillosPorCategoria.push(platillos);
+        }
+
+        return platillosPorCategoria
+
     } catch (error) {
         return error   
     }
