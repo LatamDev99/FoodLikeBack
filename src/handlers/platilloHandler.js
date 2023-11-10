@@ -10,6 +10,7 @@ const postPlatillo = async(req, res) => {
         const response = await crearPlatillo( req.body );
         res.status(200).json(response);
     } catch (error) {
+        console.log(error)
         res.status(400).json(error.message);
     };
 };

@@ -2,7 +2,7 @@ const { Platillo, Restaurante, CategoriaPlatillo } = require("../db")
 
 const crearPlatillo = async ( platillo ) => {
    
-    const { restauranteId, categoriaId, nombre, descripcion, precio, foto, promo ,stock, activo} = platillo
+    const { categoriaId, nombre, descripcion, precio, foto, promo ,stock } = platillo
 
     const infoPlatillo = {
             nombre,
@@ -10,21 +10,17 @@ const crearPlatillo = async ( platillo ) => {
             precio,
             foto,
             promo,
-            stock,
-            activo      
+            stock   
         }
-        
-        const restaurante = await Restaurante.findByPk(restauranteId)
+  
         const categoria = await CategoriaPlatillo.findByPk(categoriaId)
-        
-        if(!restaurante) return "El restaurante no existe"
+
         if(!categoria) return "La categoría no existe"
         
         const nuevoPlatillo = await Platillo.create(infoPlatillo);
-        await nuevoPlatillo.setRestaurante(restaurante);
         await categoria.addPlatillo(nuevoPlatillo)
 
-        return await Platillo.findByPk(nuevoPlatillo.id)
+        return true
 }
 
 const actualizarPlatillo = async(platillo) => {

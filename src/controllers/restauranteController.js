@@ -1,5 +1,5 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
-const { Restaurante, CategoriaRestaurante, Categoria, CategoriaPlatillo } = require("../db.js")
+const { Restaurante, CategoriaRestaurante, CategoriaPlatillo, Platillo } = require("../db.js")
 
 
 /*Función para registrar nuevo restaurante */
@@ -105,6 +105,7 @@ const todosRestaurantes = async() => {
         ]
         
     })
+
     return restaurante
 }
 

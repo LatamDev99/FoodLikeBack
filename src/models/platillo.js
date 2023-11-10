@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
               allowNull: false
           },
           precio: {
-              type: DataTypes.INTEGER,
+              type: DataTypes.STRING,
               allowNull: false
           },
           foto: {
@@ -25,16 +25,17 @@ module.exports = (sequelize) => {
               allowNull: true
           },
           promo: {
-              type: DataTypes.INTEGER,
+              type: DataTypes.STRING,
               allowNull: true
           },
           stock: {
-              type: DataTypes.INTEGER,
+              type: DataTypes.STRING,
              allowNull: true
           },
           activo: {
               type: DataTypes.BOOLEAN,
-              allowNull: false
+              allowNull: false,
+              defaultValue:true
           }
         
     },{
