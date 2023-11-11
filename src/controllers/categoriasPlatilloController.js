@@ -7,27 +7,15 @@ const agregarCategorias = async( categoria ) =>{
 
     const { nombre, idRestaurante } = categoria
 
-    const categoriaAgregada = await CategoriaPlatillo.findOne(
-        {where : {
-            nombre: nombre
-        }}
-    )
-
     const categoriasAgregadas= {
         nombre: nombre,
         value: nombre,
         label: nombre
     }
-
-
-    if (categoriaAgregada== null){
         const nuevaCategoria = await CategoriaPlatillo.create(categoriasAgregadas)
         await nuevaCategoria.addRestaurante(idRestaurante)
 
-        return nuevaCategoria
-    }else{
-        return categoriaAgregada
-    }
+        return nuevaCategoria   
 }
 
 const traerCategorias = async() =>{
