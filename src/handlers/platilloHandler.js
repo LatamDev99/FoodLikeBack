@@ -2,7 +2,8 @@ const {
     crearPlatillo,
     actualizarPlatillo,
     getPlatillos,
-    todosPlatillos
+    todosPlatillos,
+    elmPlatillo
  } = require ("../controllers/platilloController")
 
 const postPlatillo = async(req, res) => {
@@ -45,9 +46,20 @@ const todosLosPlatillos = async (req,res) =>{
         res.status(200).json(platillos)
 }
 
+const eliminarPlatillo = async (req, res) => {
+    try {
+      const idPlatillo = req.params.id;       
+      const eliminar = await elmPlatillo(idPlatillo);
+      res.status(200).json(eliminar);
+    } catch (error) {
+      res.status(400).json(error.message);
+    }
+  };
+
 module.exports = {
     postPlatillo,
     patchPlatillo,
     getPlatillosRestaurante,
-    todosLosPlatillos
+    todosLosPlatillos,
+    eliminarPlatillo
 }

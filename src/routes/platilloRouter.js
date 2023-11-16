@@ -3,7 +3,8 @@ const {
     postPlatillo,
     patchPlatillo, 
     getPlatillosRestaurante,
-    todosLosPlatillos
+    todosLosPlatillos,
+    eliminarPlatillo
 } = require ("../handlers/platilloHandler")
 
 const platilloRouter = express.Router();
@@ -14,5 +15,7 @@ platilloRouter.post("/restaurante", getPlatillosRestaurante)
 
 platilloRouter.post("/", postPlatillo)
 platilloRouter.patch("/", patchPlatillo)
+
+platilloRouter.delete('/eliminar/:id', eliminarPlatillo);
 
 module.exports = platilloRouter

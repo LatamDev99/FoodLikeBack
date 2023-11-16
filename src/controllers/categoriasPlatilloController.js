@@ -24,6 +24,4 @@ const traerCategorias = async() =>{
         )
     return categoria
 }
-
-
 module.exports = { agregarCategorias, traerCategorias } 

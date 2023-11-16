@@ -1,5 +1,4 @@
 const { Platillo, Restaurante, CategoriaPlatillo, CategoriaRestaurante } = require("../db")
-const categoriaplatillo = require("../models/categoriaplatillo")
 
 const crearPlatillo = async ( platillo ) => {
    
@@ -55,14 +54,14 @@ const getPlatillos = async ( rest ) => {
 
         for (let i = 0; i < rest.length; i++) {
         const categoriaId = rest[i];
-        const platillos = await Platillo.findAll({
+        const platillos = await CategoriaPlatillo.findAll({
             where: {
-            CategoriaPlatilloId: categoriaId,
-            },include: CategoriaPlatillo
+            id: categoriaId,
+            },include: Platillo
         });
         platillosPorCategoria.push(platillos);
         }
-
+        
         return platillosPorCategoria
 
     } catch (error) {
@@ -76,10 +75,15 @@ const todosPlatillos = async () =>{
     return platillos
 }
 
+const elmPlatillo = async (platillo) =>{
+    const plat = await Platillo.findByPk(platillo);
+    await plat  .destroy();
+}
 
 module.exports = {
-    crearPlatillo,
+    crearPlatillo,  
     actualizarPlatillo,
     getPlatillos,
-    todosPlatillos
+    todosPlatillos,
+    elmPlatillo
 }
