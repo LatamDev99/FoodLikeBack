@@ -1,5 +1,5 @@
 
-const { agregarCategorias, traerCategorias } = require("../controllers/categoriasPlatilloController")
+const { agregarCategorias, traerCategorias, cambiarCategoriaPlatillo } = require("../controllers/categoriasPlatilloController")
 
 const agregarCategoria = async(req,res) =>{
     try {
@@ -24,5 +24,16 @@ const todasLasCategorias = async(req,res) =>{
 }
 
 
+const cambiarCategoria = async(req,res) =>{
+    try {
+        let categoriaCambiada = await cambiarCategoriaPlatillo(req.body)
+        res.status(200).json(categoriaCambiada)
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error)
+    }
+}
 
-module.exports=  {agregarCategoria, todasLasCategorias  } 
+
+
+module.exports=  {agregarCategoria, todasLasCategorias, cambiarCategoria  } 

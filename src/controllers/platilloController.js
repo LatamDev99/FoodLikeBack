@@ -23,6 +23,8 @@ const crearPlatillo = async ( platillo ) => {
         return true
 }
 
+
+
 const actualizarPlatillo = async( platillo ) => {
 
     const { id, nombre, descripcion, precio , foto , promo , stock  , activo  } = platillo

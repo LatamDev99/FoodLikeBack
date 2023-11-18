@@ -6,7 +6,7 @@
         "representante": "Polanco",
         "telefono": "987456321",
         "cuentaBancaria": "12345612789123",
-        "direccion:": "CDMX",
+        "direccion": "CDMX",
         "categorias": []
     },
     {
@@ -16,7 +16,7 @@
         "representante": "Reforma",
         "telefono": "987456322",
         "cuentaBancaria": "12345612789123",
-        "direccion:": "CDMX",
+        "direccion": "CDMX",
         "categorias": []
     },
     {
@@ -26,7 +26,7 @@
         "representante": "Insurgentes",
         "telefono": "987456323",
         "cuentaBancaria": "12345612789123",
-        "direccion:": "CDMX",
+        "direccion": "CDMX",
         "categorias": []
     },
     {
@@ -36,7 +36,7 @@
         "representante": "Insurgentes",
         "telefono": "987456323",
         "cuentaBancaria": "12345612789123",
-        "direccion:": "CDMX",
+        "direccion": "asdasdasd",
         "categorias": []
     }
 ]
