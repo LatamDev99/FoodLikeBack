@@ -6,7 +6,9 @@ const {
     activosClientes,
     inactivosClientes,
     cambiarContrasena,
-    checkToken
+    checkToken,
+    generarToken,
+    verificarToken
 } = require("../controllers/clienteController");
 /*
 Funcion handler para nuevo registro de cliente
@@ -105,6 +107,40 @@ const verificarCorreo = async (req, res) => {
     }
 };
 
+const crearToken = async (req, res) => {
+    try {
+        const email = req.query.email
+        const status = await generarToken(email);
+        if(status !== 400 && status !== 404){
+            res.status(200).json("correo enviado")
+        }else if(status === 404){
+            res.status(404).json("no existe este usuario")
+        }else{
+            res.status(400).json("error")
+        }
+    } catch (error) {
+        res.status(400).json(error)
+    }
+};
+
+const recuperarContrasena = async (req, res) => {
+    try {
+        const token = req.query.token
+        const nuevaContrasena = req.query.contrasena
+        const status = await verificarToken(token, nuevaContrasena);
+        console.log(status);
+        if(status ===  200){
+            res.status(200).json("contasena actualizada")
+        }else if(status === 404){
+            res.status(404).json("token invalido")
+        }else if(status === 498){
+            res.status(498).json("token vencido")
+        }
+    } catch (error) {
+        res.status(400).json(error)
+    }
+}
+
 module.exports = {
     nuevoRegistro,
     obtenerClientes,
@@ -113,5 +149,7 @@ module.exports = {
     todosActivosClientes,
     todosInactivosClientes,
     actualizarContrasena,
-    verificarCorreo
+    verificarCorreo,
+    crearToken,
+    recuperarContrasena
 }

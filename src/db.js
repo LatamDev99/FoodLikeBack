@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const tokenContrasena = require('./models/tokenContrasena');
 const {DB_URL} = process.env
 
 const sequelize = new Sequelize(DB_URL,
@@ -45,7 +46,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante, CategoriaPlatillo } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante, CategoriaPlatillo, TokenContrasena } = sequelize.models;
 /*
 Crear las relaciones de muchos a muchos entre Restaurantes y Categorias
 */
@@ -84,6 +85,9 @@ Crear la relacion entre restaurante y platillo, con una tabla intermedia que se 
 CategoriaPlatillo.hasMany(Platillo, { foreignKey: "CategoriaPlatilloId"});
 Platillo.belongsTo(CategoriaPlatillo, { foreignKey: "CategoriaPlatilloId"});
 
+
+TokenContrasena.belongsToMany(Cliente, { through: "contrasenaCliente" })
+Cliente.belongsToMany(TokenContrasena, { through: "contrasenaCliente" })
 
 module.exports = {
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

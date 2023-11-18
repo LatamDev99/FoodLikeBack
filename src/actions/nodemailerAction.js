@@ -45,7 +45,7 @@ const sendWelcomeEmail = (user) => {
     const mailOptions = {
         from: "Food Like <gilberto.castano@outlook.es>",
         to: user.correo,
-        subject: `Vienbenido ${user.nombre}`,
+        subject: `Bienvenido ${user.nombre}`,
         html: `
             <p> 
                 Hola ${user.nombre}, vienbenido a Food like, gracias por elegirnos
@@ -62,8 +62,34 @@ const sendWelcomeEmail = (user) => {
     })
 }
 
+const sendPassToken = (token, email) => {
+    const transporter = createMailTransporter();
+    const mailOptions = {
+        from: "Food Like <gilberto.castano@outlook.es>",
+        to: email,
+        subject: `Actualizar contraseña`,
+        html: `
+        <p> 
+            Vemos que solicitaste cambiar tu contraseña, este link caduca en dos horas
+        <p>
+        <a href='http://localhost:3000/cliente/cambairPass?token=${token}'>
+            Actualizar contraseña
+        </a>
+    `
+    }
+
+    transporter.sendMail(mailOptions, (err, info) => {
+            if(err) {
+                return 400
+            }else{
+                return 202
+            }
+    })
+}
+
 module.exports = {
     createMailTransporter,
     sendVerificationEmail,
-    sendWelcomeEmail
+    sendWelcomeEmail,
+    sendPassToken
 }

@@ -1,17 +1,20 @@
 const {
     Cliente,
-    CategoriaRestaurante
+    CategoriaRestaurante,
+    TokenContrasena
 } = require("../db.js")
 const {
     crearContrasenaHash,
     verificarContrasenaHash,
     verificarDuplicado,
-    verificarContrasenaValida
+    verificarContrasenaValida,
+    tokenDb
 } = require("../actions/clienteActions.js");
 
 const {
     sendVerificationEmail,
-    sendWelcomeEmail
+    sendWelcomeEmail,
+    sendPassToken
 } = require("../actions/nodemailerAction.js")
 const crypto = require("crypto");
 
@@ -20,7 +23,9 @@ const crypto = require("crypto");
 const{
     enlazaUsuarioACarrito
 }
-= require("./carrosController.js")
+= require("./carrosController.js");
+const { log } = require("console");
+// const { Where } = require("sequelize/types/utils.js");
 /*
 Funcion para registrar nuevo cliente
 */
@@ -177,7 +182,62 @@ async function checkToken(token) {
     await user.save();
     return 202
 
+};
+
+const generarToken = async (email) => {
+        try {
+            const cliente = await Cliente.findOne({
+                where: {
+                  correo: email
+                }
+            });
+            if(!cliente) return 404
+            const token = await tokenDb(cliente);
+            if(token === 409){
+                throw new Error("token no generado");
+            }
+            const enviarToken = sendPassToken(token, email)
+            console.log(enviarToken)
+            return enviarToken
+        } catch (error) {
+            return error
+        }
 }
+
+const verificarToken = async(tokenValue, nuevaContrasena) => {
+    try {
+        const tokenDb = await TokenContrasena.findOne({
+            where: {
+                token: tokenValue,
+                activo: true
+            },
+            include: [Cliente]
+        });
+        const now = new Date();
+    
+        if(!tokenDb) return 404
+        if(tokenDb.vence < now) {
+            await tokenDb.update({
+                activo: false
+            })
+            return 409
+        }  
+        const hash = await crearContrasenaHash(nuevaContrasena)
+        const cliente = await Cliente.findByPk(tokenDb.Clientes[0].id)
+        console.log(cliente);
+        const update = await cliente.update({
+            contrasena: await crearContrasenaHash(nuevaContrasena)
+        });
+        await tokenDb.update({
+            activo: false
+        })
+        if(update) return 200
+    } catch (error) {
+        return error
+    }
+
+}
+
 module.exports = {
     registro,
     todosClientes,
@@ -186,5 +246,7 @@ module.exports = {
     activosClientes,
     inactivosClientes,
     cambiarContrasena,
-    checkToken
+    checkToken,
+    generarToken,
+    verificarToken
 };

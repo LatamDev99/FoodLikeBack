@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt")
-const {Cliente} = require("../db.js")
+const { Cliente, TokenContrasena } = require("../db.js")
+const crypto = require("crypto");
+
 /*
 Funcion para evitar registro duplicado
 */
@@ -77,11 +79,29 @@ const verificarTelefono = ( telefono ) =>{
 
 }
 
+const tokenDb = async (cliente) => {
+    const currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + 2);   
+    const tokenDb = crypto.randomBytes(64).toString('hex')
+    console.log(tokenDb);
+    const tokenInfo = {
+        token : tokenDb,
+        vence : currentDate
+    }
+    const newToken = await TokenContrasena.create(tokenInfo)
+    if(!newToken) return 409
+    await cliente.addTokenContrasena(newToken);
+
+    return tokenDb;
+
+}   
+
 module.exports= {
     crearContrasenaHash,
     verificarContrasenaHash,
     verificarCorreo,
     verificarTelefono,
     verificarDuplicado,
-    verificarContrasenaValida
+    verificarContrasenaValida,
+    tokenDb
 }
