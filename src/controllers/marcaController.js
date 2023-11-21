@@ -99,11 +99,11 @@ async function todosMarcas() {
 Funcion para obtener solo los clientes activos
 */
 async function activosMarca() {
-    let marcas = await Marca.findAll({
-        where: {
-            activo: true
-        }
-    })
+        let marcas = await Marca.findAll({
+            where: {
+                activo: true
+            }
+        })
     return marcas
 }
 /*

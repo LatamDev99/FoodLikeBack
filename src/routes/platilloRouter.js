@@ -14,7 +14,7 @@ platilloRouter.get("/todos", todosLosPlatillos)
 platilloRouter.post("/restaurante", getPlatillosRestaurante)
 
 platilloRouter.post("/", postPlatillo)
-platilloRouter.patch("/", patchPlatillo)
+platilloRouter.patch("/", patchPlatillo)    
 
 platilloRouter.delete('/eliminar/:id', eliminarPlatillo);
 

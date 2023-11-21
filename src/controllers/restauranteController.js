@@ -6,9 +6,7 @@ const { Restaurante, CategoriaRestaurante, CategoriaPlatillo, Platillo } = requi
 
 const registro = async( restaurante ) => {
     const {nombre, contrasena, correo, representante, telefono, direccion, activo, categorias} = restaurante
-
-    console.log(direccion)
-
+    
     let restCorreo = verificarCorreo(correo)
     var restTelefono = verificarTelefono(telefono)
     // let restCuentaBancaria = verificarCuentaBancaria(cuentaBancaria)

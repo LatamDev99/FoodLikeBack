@@ -39,14 +39,30 @@ const cambiarCategoriaPlatillo = async (data) => {
       console.error("Error al cambiar la categoría del platillo:", error.message);
     }
   };
-  
-
-
-
 const traerCategorias = async() =>{
     let categoria = await CategoriaPlatillo.findAll({
         include:  Restaurante}
         )
     return categoria
 }
-module.exports = { agregarCategorias, traerCategorias, cambiarCategoriaPlatillo } 
+
+const eliminandoCategoria = async ( id ) =>{
+  
+  await Platillo.destroy({
+    where: {
+      CategoriaPlatilloId: id
+    }
+  });
+
+  await CategoriaPlatillo.destroy({
+    where: {
+      id: id
+    }
+  });
+
+  return true;
+}
+
+
+
+module.exports = { agregarCategorias, traerCategorias, cambiarCategoriaPlatillo, eliminandoCategoria} 
