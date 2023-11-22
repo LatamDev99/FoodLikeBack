@@ -3,6 +3,7 @@ const {
     Restaurante,
     Platillo
 } = require("../db.js")
+const { getPlatillos } = require("./platilloController.js")
 
 const agregarCategorias = async( categoria ) =>{
 
@@ -48,21 +49,62 @@ const traerCategorias = async() =>{
 
 const eliminandoCategoria = async ( id ) =>{
   
-  await Platillo.destroy({
-    where: {
-      CategoriaPlatilloId: id
-    }
-  });
+  try {
+    await Platillo.destroy({
+      where: {
+        CategoriaPlatilloId: id
+      }
+    });
 
-  await CategoriaPlatillo.destroy({
-    where: {
-      id: id
-    }
-  });
+    await CategoriaPlatillo.destroy({
+      where: {
+        id
+      }
+    });
+    
+    return true
+  } catch (error) {
+    console.error('Error al eliminar la categoría y platillos:', error);
+    throw error; 
+  }
+};
 
-  return true;
+const cambiarCategoriaNombre = async( data ) =>{ 
+  const {idCategoria, nuevoNombre} = data
+
+    let clienteActualizado = await CategoriaPlatillo.findOne({
+      where: {
+          id: idCategoria
+      }
+    })
+    clienteActualizado.nombre = nuevoNombre;
+    clienteActualizado.value = nuevoNombre;
+    clienteActualizado.label = nuevoNombre;
+    await clienteActualizado.save();
 }
 
+const traerCategoriasPlatillos = async (dato) => {
+  const { id: restauranteId } = dato; 
+  try {
+
+    let restaurante = await Restaurante.findAll({
+      where: { id: restauranteId },
+      include:
+              CategoriaPlatillo     
+  })
+
+  const categoriaPlatilloIds = restaurante[0].CategoriaPlatillos.map(item => item.CategoriasP.CategoriaPlatilloId);
+
+  const data =   getPlatillos(categoriaPlatilloIds)
+  
+  return data
+
+  } catch (error) {
+    console.error('Error al obtener las categorías de platillos:', error);
+    throw error;
+  }
+};
 
 
-module.exports = { agregarCategorias, traerCategorias, cambiarCategoriaPlatillo, eliminandoCategoria} 
+
+module.exports = { agregarCategorias, traerCategorias, cambiarCategoriaPlatillo, eliminandoCategoria,cambiarCategoriaNombre, traerCategoriasPlatillos} 
