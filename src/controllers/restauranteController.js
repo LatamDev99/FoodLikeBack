@@ -1,5 +1,6 @@
 const { crearContrasenaHash , verificarContrasenaHash, verificarCorreo , verificarTelefono, verificarCuentaBancaria } = require("../actions/restauranteActions.js")
 const { Restaurante, CategoriaRestaurante, CategoriaPlatillo, Platillo } = require("../db.js")
+const { getPlatillos } = require("./platilloController.js")
 
 
 /*Función para registrar nuevo restaurante */
@@ -225,6 +226,30 @@ async function cambiarDatos( restaurante ){
         return [true, restActualizado]   
 }
    
+const restauranteCliente = async( restaurante ) =>{
+    const { id } = restaurante 
+
+        try {
+
+            let restaurante = await Restaurante.findAll({
+              where: { id: id },
+              include:
+                      CategoriaPlatillo,
+                      CategoriaRestaurante     
+          })
+
+          const categoriaPlatilloIds = restaurante[0].CategoriaPlatillos.map(item => item.CategoriasP.CategoriaPlatilloId);
+        
+          const data =   getPlatillos(categoriaPlatilloIds)
+
+          return [restaurante, data]
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+
+}
 
 module.exports={
     registro, 
@@ -234,5 +259,7 @@ module.exports={
     cambiarContrasena,
     activosRestaurantes,
     inactivosRestaurantes,
-    cambiarDatos
+    cambiarDatos,
+    restauranteCliente,
+    
 };
