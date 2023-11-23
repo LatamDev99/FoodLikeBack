@@ -29,9 +29,6 @@ const platilloPruebas = async () => {
       }
 }
 
-
-
-
 const crearPlatillo = async ( platillo ) => {
    
     const { categoriaId, nombre, descripcion, precio, foto, promo ,stock } = platillo

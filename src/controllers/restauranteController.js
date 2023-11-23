@@ -244,7 +244,7 @@ const restauranteCliente = async( restaurante ) =>{
 
           const categoriaPlatilloIds = restaurante[0].CategoriaPlatillos.map(item => item.CategoriasP.CategoriaPlatilloId);
         
-          const data =   getPlatillos(categoriaPlatilloIds)
+          const data =   await getPlatillos(categoriaPlatilloIds)
 
           return [restaurante, data]
         
