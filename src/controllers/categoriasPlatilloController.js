@@ -61,7 +61,6 @@ const eliminandoCategoria = async ( id ) =>{
         id
       }
     });
-    
     return true
   } catch (error) {
     console.error('Error al eliminar la categoría y platillos:', error);
@@ -84,6 +83,7 @@ const cambiarCategoriaNombre = async( data ) =>{
 }
 
 const traerCategoriasPlatillos = async (dato) => {
+  
   const { id: restauranteId } = dato; 
   try {
 

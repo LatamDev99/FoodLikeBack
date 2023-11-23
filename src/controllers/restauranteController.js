@@ -97,15 +97,18 @@ const sesion = async( credencial ) => {
 /*Función para obtener todos los restaurantes */
 
 const todosRestaurantes = async() => {
-    let restaurante = await Restaurante.findAll({
-        include:[
-                CategoriaRestaurante,
-                CategoriaPlatillo
-        ]
-        
-    })
-
-    return restaurante
+    try {
+        let restaurante = await Restaurante.findAll({
+            include:[
+                    CategoriaRestaurante,
+                    CategoriaPlatillo
+            ]        
+        })   
+        return restaurante 
+    } catch (error) {
+        console.log(error)  
+    }
+    
 }
 
 /*Función para activar o desactivar restaurantes */
@@ -227,6 +230,7 @@ async function cambiarDatos( restaurante ){
 }
    
 const restauranteCliente = async( restaurante ) =>{
+
     const { id } = restaurante 
 
         try {
@@ -260,6 +264,5 @@ module.exports={
     activosRestaurantes,
     inactivosRestaurantes,
     cambiarDatos,
-    restauranteCliente,
-    
+    restauranteCliente,   
 };

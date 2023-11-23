@@ -90,6 +90,7 @@ TokenContrasena.belongsToMany(Cliente, { through: "contrasenaCliente" })
 Cliente.belongsToMany(TokenContrasena, { through: "contrasenaCliente" })
 
 module.exports = {
+   sequelize,
    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
    conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

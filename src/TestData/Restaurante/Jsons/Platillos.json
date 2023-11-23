@@ -1,0 +1,26 @@
+[
+    {
+        "nombre": "LOMO SALTADO",
+        "foto": "https://www.elolivar.com.pe/wp-content/uploads/2021/08/lomo-saltado.png",
+        "descripcion": "LOMO SALTADO A TANTO",
+        "precio": "15",
+        "promo": "10",
+        "stock": "20"
+    },
+    {
+        "nombre": "POLLO A LA BRASA",
+        "foto": "https://imgmedia.buenazo.pe/1200x660/buenazo/original/2023/07/14/64ac3e8c599470217672a906.jpg",
+        "descripcion": "POLLO A LA BRASA A TANTO",
+        "precio": "35",
+        "promo": "15",
+        "stock": "40"
+    },
+    {
+        "nombre": "CEVICHE",
+        "foto": "https://kasani.pe/wp-content/uploads/2022/02/ceviche-de-lenguado.jpg",
+        "descripcion": "CEVICHE A TANTO",
+        "precio": "18",
+        "promo": "11",
+        "stock": "23"
+    }
+]

@@ -1,0 +1,60 @@
+[
+    {
+        "nombre": "KFC",
+        "correo": "123@gmail.com",
+        "contrasena": "123",
+        "representante": "KFC_GERENTE",
+        "telefono": "987456321",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "PERU",
+        "horario": "12",
+        "logo":"https://1000marcas.net/wp-content/uploads/2020/01/KFC-logo.png",
+        "fachada": "https://1000marcas.net/wp-content/uploads/2020/01/KFC-logo.png",
+		"alcance": "5",
+        "categorias": []
+    },
+    {
+        "nombre": "PIZZA HUT",
+        "correo": "1234@gmail.com",
+        "contrasena": "1234",
+        "representante": "PIZZA_HUT_GERENTE",
+        "telefono": "987456322",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "CDMX",
+        "horario": "11",
+        "logo":"https://1000marcas.net/wp-content/uploads/2020/01/Pizza-Hut-logo.png",
+        "fachada": "https://1000marcas.net/wp-content/uploads/2020/01/Pizza-Hut-logo.png",
+		"alcance": "7",
+        "categorias": []
+    },
+    {
+        "nombre": "POPEYES PERU",
+        "correo": "12345@gmail.com",
+        "contrasena": "12345",
+        "representante": "POPEYES_PERU_GERENTE",
+        "telefono": "987456323",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "PERU",
+        "categorias": [],
+
+        "horario": "18",
+        "logo":"https://www.deliverylima.net/wp-content/uploads/2021/05/Popeyes-Peru-Logo.png",
+        "fachada": "https://www.deliverylima.net/wp-content/uploads/2021/05/Popeyes-Peru-Logo.png",
+		"alcance": "1"
+
+    },
+    {
+        "nombre": "OXXO",
+        "correo": "123456@gmail.com",
+        "contrasena": "12356",
+        "representante": "OXXO_GERENTE",
+        "telefono": "987456323",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "asdasdasd",
+        "categorias": [],
+        "horario": "23",
+        "logo":"https://thefoodtech.com/wp-content/uploads/2023/06/oxxo-1.jpg",
+        "fachada": "https://thefoodtech.com/wp-content/uploads/2023/06/oxxo-1.jpg",
+		"alcance": "4"
+    }
+]

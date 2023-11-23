@@ -1,0 +1,14 @@
+[
+    {
+        "nombre": "DESAYUNO"       
+    },
+    {
+        "nombre": "ALMUERZO"       
+    },
+    {
+        "nombre": "MERIENDA"       
+    },
+    {
+        "nombre": "CENA"        
+    }
+]

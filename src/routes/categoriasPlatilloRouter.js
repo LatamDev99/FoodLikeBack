@@ -8,7 +8,6 @@ categoriasPlatilloRouter.get('/todos', todasLasCategorias);
 categoriasPlatilloRouter.post('/traercategoriarestaurante', traerCategoriaPlatillo);
 
 
-
 categoriasPlatilloRouter.post('/agregar', agregarCategoria);
 
 categoriasPlatilloRouter.patch('/cambiarcategoria', cambiarCategoria)

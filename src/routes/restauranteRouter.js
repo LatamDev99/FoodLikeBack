@@ -7,7 +7,8 @@ const { nuevoRegistro,
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
     todosInactivosRestaurantes,
-    actualizarDatos
+    actualizarDatos,
+    restauranteClienteHandler
 } = require("../handlers/restauranteHandler.js")
 
 const restauranteRouter = express.Router();
@@ -16,6 +17,9 @@ restauranteRouter.post('/registro', nuevoRegistro);
 restauranteRouter.post('/sesion', inicioSesion);
 
 restauranteRouter.get('/todos', obtenerRestaurantes);
+
+restauranteRouter.post('/restauranteId', restauranteClienteHandler);
+
 restauranteRouter.get('/activos', todosActivosRestaurantes);
 restauranteRouter.get('/inactivos', todosInactivosRestaurantes);
 

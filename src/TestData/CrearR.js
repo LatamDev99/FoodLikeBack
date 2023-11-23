@@ -1,4 +1,4 @@
-const restaurantes = require("./Restaurantes.json")
+// const restaurantes = require("./Restaurantes.json")
 const {registro} = require("../controllers/restauranteController")
 const { traerCategorias } = require("../controllers/categoriaRestauranteController")
 

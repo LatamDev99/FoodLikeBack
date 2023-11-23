@@ -1,4 +1,4 @@
-const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes, cambiarDatos} = require("../controllers/restauranteController");
+const { registro, todosRestaurantes, sesion, restauranteDesAct, cambiarContrasena, activosRestaurantes, inactivosRestaurantes, cambiarDatos, restauranteCliente} = require("../controllers/restauranteController");
 
 /* Nuevo registro de restaurante */
 
@@ -17,7 +17,7 @@ const nuevoRegistro = async(req, res) => {
 const inicioSesion = async(req, res) => {
     try {
         let restaurante = await sesion(req.body)
-        res.status(200).json( restaurante)
+        res.status(200).json(restaurante)
     } catch (error) {
         console.log(error)
         res.status(400).json(error)
@@ -27,8 +27,12 @@ const inicioSesion = async(req, res) => {
 /* Obtener todos los restaurantes */
 
 const obtenerRestaurantes = async(req, res) => {
+   try {
     let restaurante = await todosRestaurantes()
     res.status(200).json(restaurante)
+   } catch (error) {
+    console.log(error)
+   }
 }
 
 /* Activar o desactivar un restaurante */
@@ -97,6 +101,17 @@ const actualizarDatos = async(req, res) => {
     }
 }
 
+const restauranteClienteHandler = async(req, res) => {
+    try {
+        let restaurante = await restauranteCliente(req.body)
+        res.status(200).json(restaurante)
+    } catch (error) {
+        console.log(error);
+        res.status(400).json(error)
+    }
+}
+
+
 
 module.exports = {
     nuevoRegistro, 
@@ -106,6 +121,6 @@ module.exports = {
     actualizarContrasenaRestaurante, 
     todosActivosRestaurantes, 
     todosInactivosRestaurantes,
-    actualizarDatos
-
+    actualizarDatos,
+    restauranteClienteHandler
 }
