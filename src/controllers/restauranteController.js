@@ -179,8 +179,9 @@ async function inactivosRestaurantes() {
     return restaurante
 }
 
-async function cambiarDatos( restaurante ){
+async function  cambiarDatos( restaurante ){
 
+    console.log(restaurante)
     const { horario , logo , fachada , cuentaBancaria, alcance, CategoriaRestaurantes } = restaurante
 
     let restauranteDatos = await Restaurante.findOne({

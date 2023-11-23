@@ -41,9 +41,15 @@ const cambiarCategoriaPlatillo = async (data) => {
     }
   };
 const traerCategorias = async() =>{
-    let categoria = await CategoriaPlatillo.findAll({
-        include:  Restaurante}
-        )
+      let categoria = await CategoriaPlatillo.findAll({
+        include: [
+            {
+                model: Restaurante,
+                attributes: ['id', 'nombre'],
+            },
+        ],
+    });
+    
     return categoria
 }
 
