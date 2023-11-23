@@ -71,6 +71,39 @@ const getPlatillos = async ( rest ) => {
     }
 }
 
+const getPlatillosUsuario = async ( rest ) => {
+
+    try {            
+        const platillosPorCategoria = []
+
+        for (let i = 0; i < rest.length; i++) {
+
+        const categoriaId = rest[i];
+
+        const platillos = await CategoriaPlatillo.findAll({
+            where: {
+                id: categoriaId,
+            },
+            attributes: ['id', 'nombre'],
+            include: [
+                {
+                    model: Platillo,
+                },
+            ],
+        });
+
+
+        platillosPorCategoria.push(platillos);
+        }
+        
+        return platillosPorCategoria
+
+    } catch (error) {
+        return error   
+    }
+}
+
+
 const todosPlatillos = async () =>{
     let platillos = await Platillo.findAll()
 
@@ -87,5 +120,6 @@ module.exports = {
     actualizarPlatillo,
     getPlatillos,
     todosPlatillos,
-    elmPlatillo
+    elmPlatillo,
+    getPlatillosUsuario
 }
