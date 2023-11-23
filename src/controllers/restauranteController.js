@@ -98,17 +98,14 @@ const sesion = async( credencial ) => {
 
 const todosRestaurantes = async() => {
     try {
-        let restaurante = await Restaurante.findAll({
-            include:[
-                    CategoriaRestaurante,
-                    CategoriaPlatillo
-            ]        
-        })   
-        return restaurante 
+        const restaurantes = await Restaurante.findAll({
+            attributes: ['id', 'nombre', 'logo'],
+        });
+        return restaurantes;
+        
     } catch (error) {
-        console.log(error)  
+        console.error(error);
     }
-    
 }
 
 /*Función para activar o desactivar restaurantes */
