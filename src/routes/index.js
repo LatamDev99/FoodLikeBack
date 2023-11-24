@@ -10,6 +10,7 @@ const carritoDeComprasRouter = require("./carritoDeComprasRouter")
 const categoriasPlatilloRouter = require("./categoriasPlatilloRouter")
 const catergoriasRestauranteRouter = require("./categoriaRestauranteRouter")
 const carritoRouter = require("./carritoRouter")
+const likeRouter = require("./likeRouter")
 
 const router = Router();
 router.use(express.json());
@@ -27,6 +28,8 @@ router.use("/marca", marcaRouter)
 router.use("/carro", carritoDeComprasRouter)
 router.use("/categoriaplatillo", categoriasPlatilloRouter)
 router.use("/categoriarestaurante", catergoriasRestauranteRouter)
+
+router.use("/like", likeRouter);
 
 
 

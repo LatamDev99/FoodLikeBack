@@ -46,7 +46,8 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 // Aqui los modelos
-const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante, CategoriaPlatillo, TokenContrasena } = sequelize.models;
+const { Cliente, Restaurante, Platillo, Review, Marca, CategoriaRestaurante, CategoriaPlatillo, TokenContrasena, Like } = sequelize.models;
+
 /*
 Crear las relaciones de muchos a muchos entre Restaurantes y Categorias
 */
@@ -88,6 +89,12 @@ Platillo.belongsTo(CategoriaPlatillo, { foreignKey: "CategoriaPlatilloId"});
 
 TokenContrasena.belongsToMany(Cliente, { through: "contrasenaCliente" })
 Cliente.belongsToMany(TokenContrasena, { through: "contrasenaCliente" })
+
+///////////
+
+Platillo.hasMany(Like , { foreignKey: 'idPlatillo' });
+Like.belongsTo(Platillo , { foreignKey: 'idPlatillo' });
+
 
 module.exports = {
    sequelize,
