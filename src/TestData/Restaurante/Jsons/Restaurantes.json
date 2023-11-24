@@ -36,12 +36,10 @@
         "cuentaBancaria": "12345612789123",
         "direccion": "PERU",
         "categorias": [],
-
         "horario": "18",
         "logo":"https://www.deliverylima.net/wp-content/uploads/2021/05/Popeyes-Peru-Logo.png",
         "fachada": "https://www.deliverylima.net/wp-content/uploads/2021/05/Popeyes-Peru-Logo.png",
 		"alcance": "1"
-
     },
     {
         "nombre": "OXXO",
@@ -56,5 +54,33 @@
         "logo":"https://thefoodtech.com/wp-content/uploads/2023/06/oxxo-1.jpg",
         "fachada": "https://thefoodtech.com/wp-content/uploads/2023/06/oxxo-1.jpg",
 		"alcance": "4"
-    }
+    },
+    {
+        "nombre": "MAC DONALDS",
+        "correo": "1234567@gmail.com",
+        "contrasena": "1234567",
+        "representante": "MAC_DONALDS_GERENTE",
+        "telefono": "987456321",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "PERU",
+        "horario": "12",
+        "logo":"https://brandemia.org/contenido/subidas/2022/10/marca-mcdonalds-logo.png",
+        "fachada": "https://brandemia.org/contenido/subidas/2022/10/marca-mcdonalds-logo.png",
+		"alcance": "5",
+        "categorias": []
+    },
+    {
+        "nombre": "PARDOS CHICKEN",
+        "correo": "12345678@gmail.com",
+        "contrasena": "12345678",
+        "representante": "PARDOS_CHICKEN_GERENTE",
+        "telefono": "987456322",
+        "cuentaBancaria": "12345612789123",
+        "direccion": "CDMX",
+        "horario": "11",
+        "logo":"https://s3.amazonaws.com/media.greatplacetowork.com/peru/best-workplaces-in-peru/2023/3-mas-de-1000/14-pardos-chicken/logo-01.png",
+        "fachada": "https://s3.amazonaws.com/media.greatplacetowork.com/peru/best-workplaces-in-peru/2023/3-mas-de-1000/14-pardos-chicken/logo-01.png",
+		"alcance": "7",
+        "categorias": []
+    }  
 ]
