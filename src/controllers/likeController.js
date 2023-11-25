@@ -2,7 +2,8 @@ const {
     Platillo,
     Cliente,
     Like,
-    Restaurante
+    Restaurante,
+    CategoriaPlatillo
 } = require("../db.js")
 
 
@@ -27,18 +28,41 @@ const registro  = async ( data ) => {
 
 const traerPlatilloIdConLike = async ( data ) =>{ 
 
-    const { id } = data
+  const { id } = data
 
-    const platillo = await Platillo.findOne({
-        where: {
-          id: id,
+
+
+  const platillo = await Platillo.findOne({
+      where: {
+        id: id,
+      },
+      include: Like, 
+    });
+
+  const { CategoriaPlatilloId } = platillo
+
+  const categoriaPlatillo = await CategoriaPlatillo.findOne({
+    where: {
+      id: CategoriaPlatilloId,
+      },
+      include: [
+        {
+            model: Restaurante,
+            attributes: ['id', 'logo'],
         },
-        include: Like, 
-      });
-      
-    return platillo
-}
+    ],
+  })
 
+  const { Restaurantes } = categoriaPlatillo
+
+  console.log(Restaurantes[0].id)
+
+  const obj ={
+    id :  Restaurantes[0].id,
+    logo : Restaurantes[0].logo
+  }  
+  return [platillo , obj ]
+}
 
 
 

@@ -91,6 +91,7 @@ const cambiarCategoriaNombre = async( data ) =>{
 const traerCategoriasPlatillos = async (dato) => {
   
   const { id: restauranteId } = dato; 
+
   try {
 
     let restaurante = await Restaurante.findAll({
