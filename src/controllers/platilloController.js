@@ -112,7 +112,7 @@ const todosPlatillos = async () =>{
 
 const elmPlatillo = async (platillo) =>{
     const plat = await Platillo.findByPk(platillo);
-    await plat  .destroy();
+    await plat .destroy();
 }
 
 module.exports = {

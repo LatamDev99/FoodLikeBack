@@ -1,7 +1,8 @@
 const {
     Cliente,
     CategoriaRestaurante,
-    TokenContrasena
+    TokenContrasena,
+    Carrito
 } = require("../db.js")
 const {
     crearContrasenaHash,
@@ -21,10 +22,12 @@ const crypto = require("crypto");
 
 
 const{
-    enlazaUsuarioACarrito
+    conectarUsuarioACarrito
 }
-= require("./carrosController.js");
+= require("./carritoDeComprasController.js");
 const { log } = require("console");
+
+
 // const { Where } = require("sequelize/types/utils.js");
 /*
 Funcion para registrar nuevo cliente
@@ -53,11 +56,13 @@ async function registro(cliente) {
 
     const clienteCreado = await Cliente.create(nuevoCliente)
 
+
     if (nuevoCliente.nombre.length == 0) {
         return "Ups, hubo un error"
     }
 
-    await enlazaUsuarioACarrito(clienteCreado.id)
+    await conectarUsuarioACarrito(clienteCreado.id)
+
     if (preferencias && preferencias.length > 0) {
 
         for (let index = 0; index < preferencias.length; index++) {
@@ -118,7 +123,9 @@ async function desactivarCliente(cliente) {
 Funcion para obtener todos los clientes
 */
 async function todosClientes() {
-    let clientes = await Cliente.findAll()
+    let clientes = await Cliente.findAll(
+        {include: Carrito}
+    )
     return clientes
 }
 /*

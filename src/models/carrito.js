@@ -9,9 +9,13 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    status: {
+    activo: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
+    },
+    total: {
+      type: DataTypes.DECIMAL(10, 2),
+      defaultValue: 0,
     },
   }, {
     timestamps: false

@@ -1,14 +1,15 @@
 const express = require('express');
-
-const {  agregarPlatilloCarrito,todosCarros,eliminarPlatilloCarrito,buscarCarroId  } = require("../handlers/carroDeComprasHandler.js")
-
-const carroDeCompras = express.Router();
-
-carroDeCompras.get('/todos', todosCarros);
-carroDeCompras.get('/buscar', buscarCarroId);
-
-carroDeCompras.patch('/platillo', agregarPlatilloCarrito);
-carroDeCompras.patch('/platilloelim', eliminarPlatilloCarrito);
+const {
+    agregarPlatilloCarrito,
+    todosCarros,
+    eliminarPlatilloCarrito,
+    buscarCarroId
+} = require("../handlers/carritoDeComprasHandler")
 
 
-module.exports = carroDeCompras;
+const carritoRouter = express.Router()
+
+carritoRouter.get("/todos", todosCarros)
+carritoRouter.post("/agregarplatillosalcarrito", agregarPlatilloCarrito)
+
+module.exports = carritoRouter

@@ -2,8 +2,8 @@ const {
     todosCarritos,
     agregarPlatillosAlCarrito,
     eliminarPlatillodelCarrito,
-    obtenerCarritoPorId
-} = require("../controllers/carrosController");
+    obtenerCarritoPorId,
+} = require("../controllers/carritoDeComprasController");
 
 /* Función para agregar platillos al Carrito */
  
@@ -16,9 +16,14 @@ const agregarPlatilloCarrito = async(req, res) => {
         console.log(error)
         res.status(400).json(error)
     }
-
-
 }
+
+
+
+//////////////////////
+
+
+
 
 const eliminarPlatilloCarrito = async(req, res) => {
     try {
@@ -37,7 +42,6 @@ const eliminarPlatilloCarrito = async(req, res) => {
 const todosCarros = async(req, res) => {
     try {
         let review = await todosCarritos()
-
         res.status(200).json(review)
     } catch (error) {
         res.status(400).json(error)
